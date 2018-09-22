@@ -10,7 +10,7 @@ Jaskaran Kukreja -	40071638 -	jaskaran310193@gmail.com
 
 Sri Akhil Varma Alluri -	40082333 - allurisriakhil@gmail.com
 
-Nayana Raj Cheluvaraju	- 40071318 -	nayanaraj237@gmail.com
+Nayana Raj Cheluvaraju	- 40071318 -	nayanaraj.237@gmail.com
 
 Himalaya Yadav -	40070312 -	himalayayadav444@gmail.com
 
