@@ -98,4 +98,48 @@
         $(thisAlert).removeClass('alert-validate');
         $(thisAlert).find('.btn-hide-validate').remove();
     }
+    
+    //Sign-up for admin
+    var input = $('.validate-input .input100');
+
+    $('#sign-up-admin').on('submit', function ($event) {
+        $event.preventDefault();
+        var check = true;
+
+        for (var i = 0; i < input.length; i++) {
+            if (validate(input[i]) == false) {
+                showValidate(input[i]);
+                check = false;
+            }
+        }
+
+        if (check == true) {
+            $.ajax({
+                type: "POST",
+                url: "/api/signup/admin",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({
+                    "user": $("#user").val(),
+                    "password": $("#password").val(),
+                    "FirstName": $("#FirstName").val(),
+                    "LastName": $("#LastName").val(),
+                    "Email": $("#Email").val(),
+                    "PhoneNumber": $("#PhoneNumber").val()
+                }),
+
+                success: function (data) {
+                    window.alert("Signup-Successfull");
+                    window.location.replace("adminhome");
+                },
+                error: function (error) {
+                    console.log(error);
+                    window.alert(error.responseJSON.error);
+                }
+
+            });
+        }
+    });
+    
+    
 })(jQuery);
