@@ -56,6 +56,18 @@ ENGINE = InnoDB;
 
 
 
+-- -----------------------------------------------------
+-- Table `SOEN341`.`Administrator`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SOEN341`.`Administrator` (
+  `UserName` VARCHAR(45) NULL,
+  `Password` VARCHAR(45) NULL)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
 
@@ -111,6 +123,17 @@ INSERT INTO `SOEN341`.`magazine` (`Title`, `Publisher`, `Language`, `ISBN-10`, `
 INSERT INTO `SOEN341`.`magazine` (`Title`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Dot Net', 'Bloomsbury', 'French', '1524796979', '978-1524796983');
 INSERT INTO `SOEN341`.`magazine` (`Title`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Sql Database', 'Egmont', 'English', '1524796982', '978-1524796986');
 INSERT INTO `SOEN341`.`magazine` (`Title`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Data Structures', 'Faber Alliance', 'English', '1524796983', '978-1524796987');
+
+COMMIT;
+
+
+
+-- -----------------------------------------------------
+-- Data for table `SOEN341`.`Administrator`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `SOEN341`;
+INSERT INTO `SOEN341`.`Administrator` (`UserName`, `Password`) VALUES ('Admin', 'Soen341');
 
 COMMIT;
 
