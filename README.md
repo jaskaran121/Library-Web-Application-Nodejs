@@ -16,6 +16,6 @@ Nayana Raj Cheluvaraju	- 40071318 -	nayanaraj.237@gmail.com
 
 Himalaya Yadav -	40070312 -	himalayayadav444@gmail.com
 
-Ait Ouaziz El Hassan -	26791573 -	hassan47896@hotmail.com
+Ait Ouaziz El Hassan -	26791573 -	aitouazizelhassan@gmail.com
 
 Seif Elderbi - 40029692 - seif.derby@yahoo.com
