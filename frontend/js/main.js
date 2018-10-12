@@ -175,5 +175,46 @@
             });
         }
     }); 
+   //Sign-up for student
+    var input = $('.validate-input .input100');
+
+    $('#sign-up-student').on('submit', function ($event) {
+        $event.preventDefault();
+        var check = true;
+
+        for (var i = 0; i < input.length; i++) {
+            if (validate(input[i]) == false) {
+                showValidate(input[i]);
+                check = false;
+            }
+        }
+
+        if (check == true) {
+            $.ajax({
+                type: "POST",
+                url: "/api/signup/student",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({
+                    "FirstName": $("#FirstName").val(),
+                    "LastName": $("#LastName").val(),
+                    "UserName": $("#UserName").val(),
+                    "Password": $("#Password").val(),
+                    "Email": $("#Email").val(),
+                    "PhoneNumber": $("#PhoneNumber").val()
+                }),
+                success: function (data) {
+                    window.alert("Sign-Up Succesfull");
+                    window.location.replace("studentlogin");
+                },
+                error: function (error) {
+                    console.log(error);
+                    window.alert(error.responseJSON.error);
+                }
+            });
+        }
+    });
+ 
+    
     
 })(jQuery);
