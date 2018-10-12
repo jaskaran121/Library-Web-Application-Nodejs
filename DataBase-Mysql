@@ -42,6 +42,19 @@ CREATE TABLE IF NOT EXISTS `SOEN341`.`music` (
   PRIMARY KEY (`Title`))
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `SOEN341`.`magazine`                                 
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SOEN341`.`magazine` (
+  `Title` VARCHAR(255) NULL,
+  `Publisher` VARCHAR(255) NULL,
+  `Language` VARCHAR(255) NULL,
+  `ISBN-10` VARCHAR(255) NULL,
+  `ISBN-13` VARCHAR(255) NULL,
+  PRIMARY KEY (`ISBN-10`))
+ENGINE = InnoDB;
+
+
 
 
 
@@ -82,3 +95,23 @@ INSERT INTO `SOEN341`.`music` (`Type`, `Title`, `Artist`, `Label`, `Release Date
 INSERT INTO `SOEN341`.`music` (`Type`, `Title`, `Artist`, `Label`, `Release Date`, `ASIN`) VALUES ('', NULL, NULL, NULL, NULL, NULL);
 
 COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `SOEN341`.`magazine`               
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `SOEN341`;
+INSERT INTO `SOEN341`.`magazine` (`Title`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Do Androids Dream of Electric Sheep?', 'Del Rey; Reprint edition (Sept. 26 2017)', 'English', '1524796972', '978-1524796976');
+INSERT INTO `SOEN341`.`magazine` (`Title`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('TIME', ' Penguin Random House ', 'French', '1524796973', '978-1524796977');
+INSERT INTO `SOEN341`.`magazine` (`Title`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Java Beginners', 'Hachette Livre (UK)', 'English', '1524796974', '978-1524796978');
+INSERT INTO `SOEN341`.`magazine` (`Title`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Java Intermediate', 'HarperCollins ', 'English', '1524796975', '978-1524796979');
+INSERT INTO `SOEN341`.`magazine` (`Title`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('cloud', 'Pan Macmillan', 'English', '1524796976', '978-1524796980');
+INSERT INTO `SOEN341`.`magazine` (`Title`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('devops', 'Pearson Education', 'English', '1524796977', '978-1524796981');
+INSERT INTO `SOEN341`.`magazine` (`Title`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('microsoft Azure', 'Oxford University Press', 'French', '1524796978', '978-1524796982');
+INSERT INTO `SOEN341`.`magazine` (`Title`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Dot Net', 'Bloomsbury', 'French', '1524796979', '978-1524796983');
+INSERT INTO `SOEN341`.`magazine` (`Title`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Sql Database', 'Egmont', 'English', '1524796982', '978-1524796986');
+INSERT INTO `SOEN341`.`magazine` (`Title`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Data Structures', 'Faber Alliance', 'English', '1524796983', '978-1524796987');
+
+COMMIT;
+
+
