@@ -29,7 +29,18 @@ CREATE TABLE IF NOT EXISTS `SOEN341`.`book` (
   PRIMARY KEY (`ISBN-10`))
 ENGINE = InnoDB;
 
-
+-- -----------------------------------------------------
+-- Table `SOEN341`.`music`  
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SOEN341`.`music` (
+  `Type` VARCHAR(45) NULL,
+  `Title` VARCHAR(255) NULL,
+  `Artist` VARCHAR(100) NULL,
+  `Label` VARCHAR(45) NULL,
+  `Release Date` VARCHAR(100) NULL,
+  `ASIN` VARCHAR(100) NULL,
+  PRIMARY KEY (`Title`))
+ENGINE = InnoDB;
 
 
 
@@ -50,5 +61,24 @@ INSERT INTO `SOEN341`.`book` (`Title`, `Author`, `Format`, `Pages`, `Publisher`,
 INSERT INTO `SOEN341`.`book` (`Title`, `Author`, `Format`, `Pages`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Dot Net', 'Nora Roberts', 'Paperback	', 220, 'Bloomsbury', 'French', '1524796979', '978-1524796983');
 INSERT INTO `SOEN341`.`book` (`Title`, `Author`, `Format`, `Pages`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Operating Systems', 'Homer', 'Paperback', 190, 'Simon & Schuster', 'French', '1524796980', '978-1524796984');
 INSERT INTO `SOEN341`.`book` (`Title`, `Author`, `Format`, `Pages`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Computer Networks', 'Anne Rice', 'Paperback', 310, 'John Wiley & Sons', 'English', '1524796981', '978-1524796985');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `SOEN341`.`music`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `SOEN341`;
+INSERT INTO `SOEN341`.`music` (`Type`, `Title`, `Artist`, `Label`, `Release Date`, `ASIN`) VALUES ('CD', 'Data Structures', 'Robert', 'Universal Music Group', '01-03-2007', 'B008FOB135');
+INSERT INTO `SOEN341`.`music` (`Type`, `Title`, `Artist`, `Label`, `Release Date`, `ASIN`) VALUES ('Pen Drive', 'Sql Database', 'Miley', 'Warner Music Group', '21-09-2003', 'B008FOB134');
+INSERT INTO `SOEN341`.`music` (`Type`, `Title`, `Artist`, `Label`, `Release Date`, `ASIN`) VALUES ('CD', 'Computer Networks', 'Amy', 'Sony Music', '02-02-2009', 'B008FOB133');
+INSERT INTO `SOEN341`.`music` (`Type`, `Title`, `Artist`, `Label`, `Release Date`, `ASIN`) VALUES ('Floppy', 'Operating Systems', 'Kelly', 'EMI Group', '18-09-2017', 'B008FOB132');
+INSERT INTO `SOEN341`.`music` (`Type`, `Title`, `Artist`, `Label`, `Release Date`, `ASIN`) VALUES ('CD', 'Dot Net', 'Justin', 'Independent', '20-04-2010', 'B008FOB131');
+INSERT INTO `SOEN341`.`music` (`Type`, `Title`, `Artist`, `Label`, `Release Date`, `ASIN`) VALUES ('Floppy', 'microsoft Azure', 'Cher', 'PolyGram', '10-07-2019', 'B008FOB130');
+INSERT INTO `SOEN341`.`music` (`Type`, `Title`, `Artist`, `Label`, `Release Date`, `ASIN`) VALUES ('CD', 'devops', 'Franklin', 'BMG', '21-09-2013', 'B008FOB129');
+INSERT INTO `SOEN341`.`music` (`Type`, `Title`, `Artist`, `Label`, `Release Date`, `ASIN`) VALUES ('Pen Drive', 'cloud', 'Dion', 'EMI Group', '06-08-2015', 'B008FOB128');
+INSERT INTO `SOEN341`.`music` (`Type`, `Title`, `Artist`, `Label`, `Release Date`, `ASIN`) VALUES ('CD', 'Java Intermediate', 'Mariah', 'Independent', '09-02-2001', 'B008FOB127');
+INSERT INTO `SOEN341`.`music` (`Type`, `Title`, `Artist`, `Label`, `Release Date`, `ASIN`) VALUES ('Floppy', 'Java Beginners', 'Adele', 'Warner Music Group', '13-09-2008', 'B008FOB126');
+INSERT INTO `SOEN341`.`music` (`Type`, `Title`, `Artist`, `Label`, `Release Date`, `ASIN`) VALUES ('', NULL, NULL, NULL, NULL, NULL);
 
 COMMIT;
