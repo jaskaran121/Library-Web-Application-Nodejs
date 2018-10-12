@@ -140,6 +140,40 @@
             });
         }
     });
-    
+   //Sign-in for student
+    var input = $('.validate-input .input100');
+
+    $('#sign-in-student').on('submit', function ($event) {
+        $event.preventDefault();
+        var check = true;
+
+        for (var i = 0; i < input.length; i++) {
+            if (validate(input[i]) == false) {
+                showValidate(input[i]);
+                check = false;
+            }
+        }
+
+        if (check == true) {
+            $.ajax({
+                type: "POST",
+                url: "/api/student/login",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({
+                    "UserName": $("#user").val(),
+                    "Password": $("#password").val()
+                }),
+                success: function (data) {
+                    console.log(data.id);
+                    window.alert("Login-Successfull");
+                   // document.write(JSON.stringify(data.id));
+                },
+                error: function (error) {
+                    window.alert(error.responseJSON.error);
+                }
+            });
+        }
+    }); 
     
 })(jQuery);
