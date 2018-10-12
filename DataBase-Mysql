@@ -1,1 +1,54 @@
+-- MySQL Workbench Forward Engineering
 
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema SOEN341
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema SOEN341
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `SOEN341` DEFAULT CHARACTER SET utf8 ;
+USE `SOEN341` ;
+
+-- -----------------------------------------------------
+-- Table `SOEN341`.`book`              
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SOEN341`.`book` (
+  `Title` VARCHAR(255) NULL,
+  `Author` VARCHAR(45) NULL,
+  `Format` VARCHAR(45) NULL,
+  `Pages` INT NULL,
+  `Publisher` VARCHAR(255) NULL,
+  `Language` VARCHAR(45) NULL,
+  `ISBN-10` VARCHAR(255) NULL,
+  `ISBN-13` VARCHAR(255) NULL,
+  PRIMARY KEY (`ISBN-10`))
+ENGINE = InnoDB;
+
+
+
+
+
+
+
+-- -----------------------------------------------------
+-- Data for table `SOEN341`.`book`                 
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `SOEN341`;
+INSERT INTO `SOEN341`.`book` (`Title`, `Author`, `Format`, `Pages`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Do Androids Dream of Electric Sheep?', 'Philip K. Dick', 'Paperback', 240, 'Del Rey; Reprint edition (Sept. 26 2017)', 'English', '1524796972', '978-1524796976');
+INSERT INTO `SOEN341`.`book` (`Title`, `Author`, `Format`, `Pages`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('TIME', 'Stefen King', 'Paperback', 268, ' Penguin Random House ', 'French', '1524796973', '978-1524796977');
+INSERT INTO `SOEN341`.`book` (`Title`, `Author`, `Format`, `Pages`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Java Beginners', 'Jane Austen', 'Paperback', 250, 'Hachette Livre (UK)', 'English', '1524796974', '978-1524796978');
+INSERT INTO `SOEN341`.`book` (`Title`, `Author`, `Format`, `Pages`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Java Intermediate', 'Leo Tolstoy', 'Paperback', 300, 'HarperCollins ', 'English', '1524796975', '978-1524796979');
+INSERT INTO `SOEN341`.`book` (`Title`, `Author`, `Format`, `Pages`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('cloud', 'F. Scott', 'Paperback', 180, 'Pan Macmillan', 'English', '1524796976', '978-1524796980');
+INSERT INTO `SOEN341`.`book` (`Title`, `Author`, `Format`, `Pages`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('devops', 'James Patterson', 'Paperback', 320, 'Pearson Education', 'English', '1524796977', '978-1524796981');
+INSERT INTO `SOEN341`.`book` (`Title`, `Author`, `Format`, `Pages`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('microsoft Azure', 'Harper Lee', 'Paperback	', 260, 'Oxford University Press', 'French', '1524796978', '978-1524796982');
+INSERT INTO `SOEN341`.`book` (`Title`, `Author`, `Format`, `Pages`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Dot Net', 'Nora Roberts', 'Paperback	', 220, 'Bloomsbury', 'French', '1524796979', '978-1524796983');
+INSERT INTO `SOEN341`.`book` (`Title`, `Author`, `Format`, `Pages`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Operating Systems', 'Homer', 'Paperback', 190, 'Simon & Schuster', 'French', '1524796980', '978-1524796984');
+INSERT INTO `SOEN341`.`book` (`Title`, `Author`, `Format`, `Pages`, `Publisher`, `Language`, `ISBN-10`, `ISBN-13`) VALUES ('Computer Networks', 'Anne Rice', 'Paperback', 310, 'John Wiley & Sons', 'English', '1524796981', '978-1524796985');
+
+COMMIT;
