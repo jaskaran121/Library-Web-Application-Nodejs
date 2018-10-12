@@ -215,6 +215,27 @@
         }
     });
  
+    //View active users
+    $('#admin-home').on('submit', function ($event) {
+        console.log("xxx");
+        $event.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: "/api/view/students",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                console.log(JSON.stringify(data.id));
+                document.write(JSON.stringify(data.id));
+            },
+            error: function (error) {
+                console.log(error);
+                window.alert(error.responseJSON.error);
+            }
+        });
+    });
+
     
     
 })(jQuery);
