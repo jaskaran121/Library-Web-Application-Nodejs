@@ -39,3 +39,36 @@ app.post('/api/login',(req,res) =>{
         }
     });
 });
+
+
+app.post('/api/signup/admin',(req,res) =>{
+    
+    con.query(`INSERT INTO users(FirstName,LastName,user,password,Email,PhoneNumber) 
+    VALUES('${req.body.FirstName}','${req.body.LastName}','${req.body.user}',
+    '${req.body.password}','${req.body.	Email}','${req.body.PhoneNumber}')`,function (err, result) {
+        if (err) throw err;
+        console.log("Number of records inserted: " + result.affectedRows); 
+        if(result.affectedRows)
+        {
+            res.status(200).json({ "success": 'SOEN 341'});
+            
+        }
+         else
+        res.status(400).json({ "error": 'Value unable to insert'});
+    });
+  //Just for checking
+    // con.query(`SELECT * FROM users WHERE user = '${req.body.user}'` ,function (err, result) {
+    //     if(result.length>0)
+    //     {
+    //         if(result[0].password===req.body.password)
+    //         {
+    //             res.status(200).json({ "success": 'SOEN 341', "id": result[0]});
+    //         } else {
+    //             res.status(400).json({ "error": 'password do not match'});
+    //         }
+    //     } else {
+    //         res.status(500).json({ "error": 'User not found'});
+    //     }
+    // });
+//
+});
