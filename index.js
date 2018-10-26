@@ -154,3 +154,26 @@ res.status(400).json({ "error": 'Error not able to insert value in to database' 
 }
 });
 });
+
+//Create movie entry
+
+app.post(&#39;/api/create/movie&#39;, (req, res) =&gt; {
+con.query(`INSERT INTO
+movie(Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_
+Time)
+VALUES(&#39;${req.body.Title}&#39;,&#39;${req.body.Director}&#39;,&#39;${req.body.Producers}&#39;,&#39;${req.
+body.Actors}&#39;,&#39;${req.body.Language}&#39;,
+&#39;${req.body.Subtitles}&#39;, &#39;${req.body.Dubbed}&#39;, &#39;${req.body.ReleaseDate}&#39;
+,&#39;${req.body.RunTime}&#39;
+)`, function (err, result) {
+console.log(err);
+console.log(&quot;Number of records inserted: &quot; + result.affectedRows);
+if (result.affectedRows) {
+res.status(200).json({ &quot;success&quot;: &#39;SOEN 341&#39;});
+}
+else {
+res.status(400).json({ &quot;error&quot;: &#39;Error not able to insert value in to database&#39;
+});
+}
+});
+});
