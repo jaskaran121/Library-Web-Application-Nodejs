@@ -177,3 +177,20 @@ res.status(400).json({ &quot;error&quot;: &#39;Error not able to insert value in
 }
 });
 });
+
+//create music entry
+app.post(&#39;/api/create/music&#39;, (req, res) =&gt; {
+con.query(`INSERT INTO music(Type,Title,Artist,Label,Release_Date,ASIN)
+VALUES(&#39;${req.body.Type}&#39;,&#39;${req.body.Title}&#39;,&#39;${req.body.Artist}&#39;,&#39;${req.body.La
+bel}&#39;,&#39;${req.body.ReleaseDate}&#39;,
+&#39;${req.body.ASIN}&#39;)`, function (err, result) {
+console.log(&quot;Number of records inserted: &quot; + result.affectedRows);
+if (result.affectedRows) {
+res.status(200).json({ &quot;success&quot;: &#39;SOEN 341&#39;});
+}
+else {
+res.status(400).json({ &quot;error&quot;: &#39;Error not able to insert value in to database&#39;
+});
+}
+});
+});
