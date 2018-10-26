@@ -139,73 +139,7 @@ app.post('/api/view/students',(req,res) =>{
 });
 app.listen(3000, () => console.log("Listening on 3000 port...."));
 
-//create book entry
-app.post('/api/create/book', (req, res) => {
-con.query(`INSERT INTO book(Title,Author,Format,Pages,Publisher,Language,ISBN10,ISBN13) 
-VALUES('${req.body.Title}','${req.body.Author}','${req.body.Format}',
-'${req.body.Pages}','${req.body.Publisher}','${req.body.Language}','${req.body.ISBN10}','${req.body.ISBN13}')`, function (err, result) {
 
-console.log("Number of records inserted: " + result.affectedRows);
-if (result.affectedRows) {
-res.status(200).json({ "success": 'SOEN 341' });
-}
-else {
-res.status(400).json({ "error": 'Error not able to insert value in to database' });
-}
-});
-});
 
-//Create movie entry
-app.post(&#39;/api/create/movie&#39;, (req, res) =&gt; {
-con.query(`INSERT INTO
-movie(Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_
-Time)
-VALUES(&#39;${req.body.Title}&#39;,&#39;${req.body.Director}&#39;,&#39;${req.body.Producers}&#39;,&#39;${req.
-body.Actors}&#39;,&#39;${req.body.Language}&#39;,
-&#39;${req.body.Subtitles}&#39;, &#39;${req.body.Dubbed}&#39;, &#39;${req.body.ReleaseDate}&#39;
-,&#39;${req.body.RunTime}&#39;
-)`, function (err, result) {
-console.log(err);
-console.log(&quot;Number of records inserted: &quot; + result.affectedRows);
-if (result.affectedRows) {
-res.status(200).json({ &quot;success&quot;: &#39;SOEN 341&#39;});
-}
-else {
-res.status(400).json({ &quot;error&quot;: &#39;Error not able to insert value in to database&#39;
-});
-}
-});
-});
 
-//create music entry
-app.post(&#39;/api/create/music&#39;, (req, res) =&gt; {
-con.query(`INSERT INTO music(Type,Title,Artist,Label,Release_Date,ASIN)
-VALUES(&#39;${req.body.Type}&#39;,&#39;${req.body.Title}&#39;,&#39;${req.body.Artist}&#39;,&#39;${req.body.La
-bel}&#39;,&#39;${req.body.ReleaseDate}&#39;,
-&#39;${req.body.ASIN}&#39;)`, function (err, result) {
-console.log(&quot;Number of records inserted: &quot; + result.affectedRows);
-if (result.affectedRows) {
-res.status(200).json({ &quot;success&quot;: &#39;SOEN 341&#39;});
-}
-else {
-res.status(400).json({ &quot;error&quot;: &#39;Error not able to insert value in to database&#39;
-});
-}
-});
-});
 
-//create magazine entry
-app.post(&#39;/api/create/magazine&#39;, (req, res) =&gt; {
-con.query(`INSERT INTO magazine(Title,Language,Publisher,ISBN10,ISBN13)
-VALUES(&#39;${req.body.Title}&#39;,&#39;${req.body.Language}&#39;,&#39;${req.body.Publisher}&#39;,&#39;${req.
-body.ISBN10}&#39;,&#39;${req.body.ISBN13}&#39;)`, function (err, result) {
-console.log(&quot;Number of records inserted: &quot; + result.affectedRows);
-if (result.affectedRows) {
-res.status(200).json({ &quot;success&quot;: &#39;SOEN 341&#39; + req.body.Title});
-}
-else {
-res.status(400).json({ &quot;error&quot;: &#39;Error not able to insert value in to database&#39;
-});
-}
-});
-});
