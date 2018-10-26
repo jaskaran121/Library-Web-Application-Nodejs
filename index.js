@@ -190,34 +190,34 @@ console.log(err);
         });
 });
 
-// //Delete entry
-// app.post('/api/delete/:entry/:id',(req,res)=>{
-// con.query(`DELETE FROM ${req.params.entry} WHERE id = ${req.params.id}`,
-// function(err,result) {
-//     console.log(err);
-// console.log("Number of rows Deleted: " + result.affectedRows);
-// if(result.affectedRows){
-//     res.status(200).json({"success": 'SOEN 341'});
-// }
-// else{
-//     res.status(400).json({"error":'Entry not present in the database'});
-// }
-// });
-// });
+//Delete entry
+app.post('/api/delete/:entry/:id',(req,res)=>{
+con.query(`DELETE FROM ${req.params.entry} WHERE id = ${req.params.id}`,
+function(err,result) {
+    console.log(err);
+console.log("Number of rows Deleted: " + result.affectedRows);
+if(result.affectedRows){
+    res.status(200).json({"success": 'SOEN 341'});
+}
+else{
+    res.status(400).json({"error":'Entry not present in the database'});
+}
+});
+});
 
-// //Show data
-// app.post('/api/show/:entry',(req,res)=>{
-//     var x = req.query.entry;
-//    con.query(`SELECT * FROM ${x}`,function(err,result){
-//        console.log(err);
-//        if (result.length > 0) {
+//Show data
+app.post('/api/show/:entry',(req,res)=>{
+    var x = req.query.entry;
+   con.query(`SELECT * FROM ${x}`,function(err,result){
+       console.log(err);
+       if (result.length > 0) {
 
-//         res.status(200).json({ "success": 'SOEN 341', "id": result });
+        res.status(200).json({ "success": 'SOEN 341', "id": result });
 
-//     } else {
-//         res.status(500).json({ "error": 'Not able to fetch values' });
-//     }
-//      }); 
-// });
+    } else {
+        res.status(500).json({ "error": 'Not able to fetch values' });
+    }
+     }); 
+});
 
 app.listen(3000, () => console.log("Listening on 3000 port...."));
