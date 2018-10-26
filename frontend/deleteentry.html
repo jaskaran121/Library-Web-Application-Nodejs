@@ -29,46 +29,21 @@
 </head>
 <body>
 	
-	
+		<form class="login100-form validate-form" >
 	<div class="container-login100">
 		<div class="wrap-login100-big p-l-55 p-r-55 p-t-80 p-b-30">
-			<form class="login100-form validate-form" >
+			
 				<span class="login100-form-title p-b-37">
-					Welcome
+					Delete Entry &nbsp
+				<select id="entryselector-delete">
+					<option value="book">Book</option>
+					<option value="magazine">Magazine</option>
+					<option value="music">Music</option>
+					<option value="movie">Movie</option>
+				 </select>
 				</span>
-                <div class="container-login100-form-btn">
-					<input type="button" class="login100-form-btn" value="Sign-up other Admins" 
-					onclick="window.location.href='adminsignup'" />
-				</div>
-
-				<div class="container-login100-form-btn" id="admin-home">
-                    <button class="login100-form-btn" >
-						View Active Users
-					</button>
-				</div>
-
-
-				<div class="container-login100-form-btn" id="log-out">
-                    <button class="login100-form-btn" >
-						Log-out
-					</button>
-				</div>
-
-
-				<div class="container-login100-form-btn">
-                    <input type="button" class="login100-form-btn" value="Create New Entry" 
-					onclick="window.location.href='createnewentry'" />
-				</div>
-
-				<div class="container-login100-form-btn">
-                    <input type="button" class="login100-form-btn" value="Delete Entry" 
-					onclick="window.location.href='deleteentry.html'" />
-				</div>
-			</form>
-</div>
-	</div>
 	
-	
+</form>
 
 	<div id="dropDownSelect1"></div>
 	
@@ -90,23 +65,42 @@
 	<script src="js/main.js"></script>
 
 	<script type="text/javascript">
-		
-		var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)flag\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-		console.log(cookieValue);
-$(document).ready(function(){
+	var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)flag\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+	console.log(cookieValue);
+	$(document).ready(function(){
    if(cookieValue==="false")
    {
 	window.location.replace("adminlogin");
 	window.alert("Please Login First");
    }
-    });
+   $('.Entry').hide();
+});
 
-$('#log-out').on("click",function(e){
-	e.preventDefault();
-	document.cookie = "flag=false";
-	window.location.replace('homepage');
-	window.alert("Log-out successfully");
-})
+
+
+$(function() {
+  $('#entryselector-delete').click(function($event){
+	$event.preventDefault();
+        $.ajax({
+            type: "get",
+			url: "/api/show",
+			data: {entry: $(this).val()},
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                // console.log(JSON.stringify(data.id));
+				// document.write(JSON.stringify(data.id));
+				window.alert("done");
+            },
+            error: function (error) {console.log("xx");
+                console.log(error);
+                
+            } 
+  });
+});});
+
+
+
 		</script>
 </body>
 </html>

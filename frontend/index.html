@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V9</title>
+	<title>Library Catalogue</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -38,11 +38,14 @@
 
 				<div class="container-login100-form-btn">
 					<input type="button" class="login100-form-btn" value="Sign In as Admin" 
-					onclick="window.location.href='adminlogin'" />
-					<input type="button" class="login100-form-btn" value="Sign In as Student" 
-					onclick="window.location.href='studentlogin'" />
+					onclick="window.location.href='adminlogin'"/>
+					
 				</div>
-
+				<div class="container-login100-form-btn">
+					
+					<input type="button" class="login100-form-btn" value="Sign In as Student" 
+					onclick="window.location.href='studentlogin'"/>
+				</div>
 			</form>
 
 			
@@ -75,6 +78,7 @@
 </body>
 
 <script type="text/javascript">
+//TO maintain session a flag is set in the cookie
 document.cookie = "flag=false";
 var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)flag\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 console.log(cookieValue);

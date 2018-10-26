@@ -21,7 +21,7 @@
     [ Validate ]*/
     var input = $('.validate-input .input100');
 
- $('#sign-in-admin').on('submit', function ($event) {
+    $('#sign-in-admin').on('submit', function ($event) {
         $event.preventDefault();
         var check = true;
 
@@ -50,7 +50,7 @@
 
                     window.location.replace("adminhome");
 
-                    console.log(document.cookie);
+                   // console.log(document.cookie);
                 },
                 error: function (error) {
                     console.log(error);
@@ -59,6 +59,7 @@
             });
         }
     });
+
 
     $('.validate-form .input100').each(function () {
         $(this).focus(function () {
@@ -98,7 +99,7 @@
         $(thisAlert).removeClass('alert-validate');
         $(thisAlert).find('.btn-hide-validate').remove();
     }
-    
+
     //Sign-up for admin
     var input = $('.validate-input .input100');
 
@@ -140,7 +141,8 @@
             });
         }
     });
-   //Sign-in for student
+
+    //Sign-in for student
     var input = $('.validate-input .input100');
 
     $('#sign-in-student').on('submit', function ($event) {
@@ -174,8 +176,8 @@
                 }
             });
         }
-    }); 
-   //Sign-up for student
+    });
+    //Sign-up for student
     var input = $('.validate-input .input100');
 
     $('#sign-up-student').on('submit', function ($event) {
@@ -214,12 +216,11 @@
             });
         }
     });
- 
-    //View active users
-    $('#admin-home').on('submit', function ($event) {
-        console.log("xxx");
-        $event.preventDefault();
 
+
+    //View active users
+    $('#admin-home').on("click", function ($event) {
+         $event.preventDefault();
         $.ajax({
             type: "POST",
             url: "/api/view/students",
@@ -236,6 +237,167 @@
         });
     });
 
-    
-    
+    var input = $('#validate-input .input100');
+//console.log(input);
+    $('#create-new-entry-book').on("click", function ($event) {
+        $event.preventDefault();
+        var check = true;
+//console.log("New book created");
+        for (var i = 0; i < input.length; i++) {
+            if (validate(input[i]) == false) {
+                showValidate(input[i]);
+                check = false;
+            }
+        }
+
+        if (check == true) {
+          
+            $.ajax({
+                type: "POST",
+                url: "/api/create/book",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({
+                    "Title": $("#Title").val(),
+                    "Author": $("#Author").val(),
+                    "Format": $("#Format").val(),
+                    "Pages": $("#Pages").val(),
+                    "Publisher": $("#Publisher").val(),
+                    "Language": $("#Language").val(),
+                    "ISBN10": $("#ISBN10").val(),
+                    "ISBN13": $("#ISBN13").val()
+                }),
+                success: function (data) {
+                    window.alert("Created Entry Successfully");
+                    window.location.replace("adminhome");
+                },
+                error: function (error) {
+                    console.log(error);
+                    window.alert(error.responseJSON.error);
+                }
+            });
+        }
+    });
+
+    //Entry for magazine
+    var input = $('#validate-input-Magazine .input100');
+//console.log(input);
+    $('#create-new-entry-Magazine').on("click", function ($event) {
+        $event.preventDefault();
+        var check = true;
+//console.log("New book created");
+        for (var i = 0; i < input.length; i++) {
+            if (validate(input[i]) == false) {
+                showValidate(input[i]);
+                check = false;
+            }
+        }
+
+        if (check == true) {
+            $.ajax({
+            type: "POST",
+                url: "/api/create/magazine",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({
+                    "Title": $("#Title-Magazine").val(),
+                    "Publisher": $("#Publisher-Magazine").val(),
+                    "Language": $("#Language-Magazine").val(),
+                    "ISBN10": $("#ISBN10-Magazine").val(),
+                    "ISBN13": $("#ISBN13-Magazine").val()
+                }),
+                success: function (data) {
+                    window.alert("Created Entry Successfully");
+                    window.location.replace("adminhome");
+                },
+                error: function (error) {
+                    console.log(error);
+                    window.alert(error.responseJSON.error);
+                }
+            });
+        }
+    });
+
+    //Entry for movie
+    var input = $('#validate-input-Movie .input100');
+//console.log(input);
+    $('#create-new-entry-Movie').on("click", function ($event) {
+        $event.preventDefault();
+        var check = true;
+//console.log("New book created");
+        for (var i = 0; i < input.length; i++) {
+            if (validate(input[i]) == false) {
+                showValidate(input[i]);
+                check = false;
+            }
+        }
+
+        if (check == true) {
+            $.ajax({
+            type: "POST",
+                url: "/api/create/movie",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({
+                    "Title": $("#Title-Movie").val(),
+                    "Director": $("#Director-Movie").val(),
+                    "Producers": $("#Producers-Movie").val(),
+                    "Actors": $("#Actors-Movie").val(),
+                    "Language": $("#Language-Movie").val(),
+                    "Subtitles": $("#Subtitles-Movie").val(),
+                    "Dubbed": $("#Dubbed-Movie").val(),
+                    "ReleaseDate": $("#Release-Date-Movie").val(),
+                    "RunTime": $("#Run-Time-Movie").val()
+                }),
+                success: function (data) {
+                    window.alert("Created Entry Successfully");
+                    window.location.replace("adminhome");
+                },
+                error: function (error) {
+                    console.log(error);
+                    window.alert(error.responseJSON.error);
+                }
+            });
+        }
+    });
+
+    //Entry for music
+    var input = $('#validate-input-Music .input100');
+//console.log(input);
+    $('#create-new-entry-Music').on("click", function ($event) {
+        $event.preventDefault();
+        var check = true;
+//console.log("New book created");
+        for (var i = 0; i < input.length; i++) {
+            if (validate(input[i]) == false) {
+                showValidate(input[i]);
+                check = false;
+            }
+        }
+
+        if (check == true) {
+            $.ajax({
+            type: "POST",
+                url: "/api/create/music",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({
+                    "Type": $("#Type-Music").val(),
+                    "Title": $("#Title-Music").val(),
+                    "Artist": $("#Artist-Music").val(),
+                    "Label": $("#Label-Music").val(),
+                    "ReleaseDate": $("#Release-Date-Music").val(),
+                    "ASIN": $("#ASIN-Music").val()
+                }),
+                success: function (data) {
+                    window.alert("Created Entry Successfully");
+                    window.location.replace("adminhome");
+                },
+                error: function (error) {
+                    console.log(error);
+                    window.alert(error.responseJSON.error);
+                }
+            });
+        }
+    });
 })(jQuery);
