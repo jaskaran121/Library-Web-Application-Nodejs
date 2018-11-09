@@ -101,6 +101,7 @@ app.post('/api/view/students', (req, res) => {
         }
     });
 });
+
 //create book entry
 app.post('/api/create/book', (req, res) => {
     const book = new models.Book(req.body.Title,req.body.Author,req.body.Format,req.body.Pages,req.body.Publisher,req.body.Language,req.body.ISBN10,req.body.ISBN13);
@@ -142,6 +143,7 @@ app.post('/api/create/music', (req, res) => {
             }
         });
 });
+
 //Create movie entry
 app.post('/api/create/movie', (req, res) => {
     con.query(`INSERT INTO movie(Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_Time) 
