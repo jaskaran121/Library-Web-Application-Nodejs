@@ -111,18 +111,14 @@ app.post('/api/view/students', (req, res) => {
 });
 //create book entry
 app.post('/api/create/book', (req, res) => {
-    con.query(`INSERT INTO book(Title,Author,Format,Pages,Publisher,Language,ISBN10,ISBN13) 
-    VALUES('${req.body.Title}','${req.body.Author}','${req.body.Format}',
-    '${req.body.Pages}','${req.body.Publisher}','${req.body.Language}','${req.body.ISBN10}','${req.body.ISBN13}')`, function (err, result) {
-
-            console.log("Number of records inserted: " + result.affectedRows);
-            if (result.affectedRows) {
-                res.status(200).json({ "success": 'SOEN 341' });
-            }
-            else {
-                res.status(400).json({ "error": 'Error not able to insert value in to database' });
-            }
-        });
+    const book = new models.Book(req.body.Title,req.body.Author,req.body.Format,req.body.Pages,req.body.Publisher,req.body.Language,req.body.ISBN10,req.body.ISBN13);
+    book.insert(function(type) {
+        if(type === 'success') {
+            res.status(200).json({ "success": 'SOEN 341' + req.body.Title});
+        } else {
+            res.status(400).json({ "error": 'Error not able to insert value in to database' });
+        }
+    });
 });
 //create magazine entry
 app.post('/api/create/magazine', (req, res) => {
