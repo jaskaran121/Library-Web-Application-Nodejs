@@ -4,20 +4,8 @@ const app = express();
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 app.use(express.static(__dirname + '/frontend'));
-var mysql = require('mysql');
+var models = require('./models');
 
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "librarycatalogue"
-});
-
-//SQL connection
-con.connect(function (err) {
-    if (err) throw err;
-    console.log("Connected!");
-});
 app.get('/homepage',(req,res) =>{
     res.sendFile(__dirname + '/frontend/index.html');
 })
@@ -45,11 +33,6 @@ app.get('/adminhome', (req, res) => {
 app.get('/createnewentry', (req, res) => {
     res.sendFile(__dirname + '/frontend/createnewentry.html');
 })
-
-//For query in the url
-app.get('/api', (req, res) => {
-    res.send(req.query);
-});
 
 //Rest Api for loggin in admininstrator
 app.post('/api/login', (req, res) => {
