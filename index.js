@@ -4,20 +4,8 @@ const app = express();
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 app.use(express.static(__dirname + '/frontend'));
-var mysql = require('mysql');
+var models = require('./models');
 
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "librarycatalogue"
-});
-
-//SQL connection
-con.connect(function (err) {
-    if (err) throw err;
-    console.log("Connected!");
-});
 app.get('/homepage',(req,res) =>{
     res.sendFile(__dirname + '/frontend/index.html');
 })
@@ -45,11 +33,6 @@ app.get('/adminhome', (req, res) => {
 app.get('/createnewentry', (req, res) => {
     res.sendFile(__dirname + '/frontend/createnewentry.html');
 })
-
-//For query in the url
-app.get('/api', (req, res) => {
-    res.send(req.query);
-});
 
 //Rest Api for loggin in admininstrator
 app.post('/api/login', (req, res) => {
@@ -128,34 +111,29 @@ app.post('/api/view/students', (req, res) => {
 });
 //create book entry
 app.post('/api/create/book', (req, res) => {
-    con.query(`INSERT INTO book(Title,Author,Format,Pages,Publisher,Language,ISBN10,ISBN13) 
-    VALUES('${req.body.Title}','${req.body.Author}','${req.body.Format}',
-    '${req.body.Pages}','${req.body.Publisher}','${req.body.Language}','${req.body.ISBN10}','${req.body.ISBN13}')`, function (err, result) {
-
-            console.log("Number of records inserted: " + result.affectedRows);
-            if (result.affectedRows) {
-                res.status(200).json({ "success": 'SOEN 341' });
-            }
-            else {
-                res.status(400).json({ "error": 'Error not able to insert value in to database' });
-            }
-        });
+    const book = new models.Book(req.body.Title,req.body.Author,req.body.Format,req.body.Pages,req.body.Publisher,req.body.Language,req.body.ISBN10,req.body.ISBN13);
+    book.insert(function(type) {
+        if(type === 'success') {
+            res.status(200).json({ "success": 'SOEN 341' + req.body.Title});
+        } else {
+            res.status(400).json({ "error": 'Error not able to insert value in to database' });
+        }
+    });
 });
 //create magazine entry
 app.post('/api/create/magazine', (req, res) => {
-    con.query(`INSERT INTO magazine(Title,Language,Publisher,ISBN10,ISBN13) 
-    VALUES('${req.body.Title}','${req.body.Language}','${req.body.Publisher}','${req.body.ISBN10}','${req.body.ISBN13}')`, function (err, result) {
-
-            console.log("Number of records inserted: " + result.affectedRows);
-            if (result.affectedRows) {
-                
-                res.status(200).json({ "success": 'SOEN 341' + req.body.Title});
-            }
-            else {
-                res.status(400).json({ "error": 'Error not able to insert value in to database' });
-            }
-        });
+    const magazine = new models.Magazine(req.body.Title,req.body.Language,req.body.Publisher,req.body.ISBN10,req.body.ISBN13);  
+    magazine.insert(function(type){
+    
+    if (type==='success') {
+        res.status(200).json({ "success": 'SOEN 341'});
+    }
+    else {
+        res.status(400).json({ "error": 'Error not able to insert value in to database' });
+    }
+});     
 });
+
 //create music entry
 app.post('/api/create/music', (req, res) => {
     con.query(`INSERT INTO music(Type,Title,Artist,Label,Release_Date,ASIN) 
