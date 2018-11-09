@@ -146,20 +146,17 @@ app.post('/api/create/music', (req, res) => {
 
 //Create movie entry
 app.post('/api/create/movie', (req, res) => {
-    con.query(`INSERT INTO movie(Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_Time) 
-    VALUES('${req.body.Title}','${req.body.Director}','${req.body.Producers}','${req.body.Actors}','${req.body.Language}',
-    '${req.body.Subtitles}', '${req.body.Dubbed}', '${req.body.ReleaseDate}' ,'${req.body.RunTime}'
-    )`, function (err, result) {
-console.log(err);
-            console.log("Number of records inserted: " + result.affectedRows);
-            if (result.affectedRows) {
-                
+    const movie = new models.Movie(req.body.Title,req.body.Director,req.body.Producers,req.body.Actors,req.body.Language,
+        req.body.Subtitles,req.body.Dubbed,req.body.Release_Date,req.body.Run_Time);
+        movie.insert(function(type){
+            if (type==='success') {
+
                 res.status(200).json({ "success": 'SOEN 341'});
             }
             else {
-                res.status(400).json({ "error": 'Error not able to insert value in to database' });
+                res.status(400).json({ "error": 'Error not able to insert value in to database'});
             }
-        });
+        });  
 });
 
 //Delete entry
