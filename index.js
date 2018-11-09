@@ -67,33 +67,25 @@ app.post('/api/signup/admin', (req, res) => {
 
 //Rest Api for sign-up of student
 app.post('/api/signup/student', (req, res) => {
-    console.log(req.body.PhoneNumber);
-    con.query(`INSERT INTO students(FirstName,LastName,UserName,Password,Email,PhoneNumber) 
-    VALUES('${req.body.FirstName}','${req.body.LastName}','${req.body.UserName}',
-    '${req.body.Password}','${req.body.Email}','${req.body.PhoneNumber}')`, function (err, result) {
-
-            console.log("Number of records inserted: " + result.affectedRows);
-            if (result.affectedRows) {
-                res.status(200).json({ "success": 'SOEN 341' });
-            }
-            else {
-                res.status(400).json({ "error": 'Error not able to insert value in to database' });
-            }
-        });
+    const student = new models.Student(req.body.FirstName,req.body.LastName,req.body.UserName,req.body.Password,
+        req.body.Email,req.body.PhoneNumber);
+    student.insert(function(type) {
+        if(type==='success')
+        res.status(200).json({ "success": 'SOEN 341' });
+    else 
+        res.status(400).json({ "error": 'Error not able to insert value in to database' });
+    });
 });
 
 //Rest Api for logging in of student
 app.post('/api/student/login', (req, res) => {
-    con.query(`SELECT * FROM students WHERE UserName = '${req.body.UserName}'`, function (err, result) {
-        if (result.length > 0) {
-            if (result[0].Password === req.body.Password) {
-                res.status(200).json({ "success": 'SOEN 341', "id": result[0] });
-            } else {
-                res.status(400).json({ "error": 'password do not match' });
-            }
-        } else {
-            res.status(500).json({ "error": 'User not found' });
-        }
+    models.Student.login(req.body.UserName,req.body.Password,function(type){
+        if(type==='success')
+        res.status(200).json({ "success": 'SOEN 341' });
+        else if(type==='error')
+        res.status(400).json({ "error": 'password do not match' });
+        else
+        res.status(500).json({ "error": 'User not found' });
     });
 });
 
@@ -196,6 +188,59 @@ app.post('/api/show/:entry',(req,res)=>{
         res.status(500).json({ "error": 'Not able to fetch values' });
     }
      }); 
+});
+
+app.listen(3000, () => console.log("Listening on 3000 port...."));
+
+//Search data
+app.get('/api/search/:entry/:query',(req,res)=>{
+const entry = req.params.entry;
+const query = req.params.query;
+
+if(entry==="Book")
+{
+    console.log("book");
+    models.Book.search(query,function(type,result){
+        if(type==='success')
+        res.status(200).json({
+            "success":"soen 341","id":result});
+        else
+        res.status(400).json({"error":'No results found'});
+    });
+}
+if(entry==="Magazine")
+{
+    console.log("magazine");
+    models.Magazine.search(query,function(type,result){
+        if(type==='success')
+        res.status(200).json({
+            "success":"soen 341","id":result});
+        else
+        res.status(400).json({"error":'No results found'});
+    });
+}
+if(entry==="Music")
+{
+    console.log("music");
+    models.Music.search(query,function(type,result){
+        if(type==='success')
+        res.status(200).json({
+            "success":"soen 341","id":result});
+        else
+        res.status(400).json({"error":'No results found'});
+    });
+}
+if(entry==="Movie")
+{
+    console.log("movie");
+    models.Movie.search(query,function(type,result){
+        if(type==='success')
+        res.status(200).json({
+            "success":"soen 341","id":result});
+        else
+        res.status(400).json({"error":'No results found'});
+    });
+}
 });
 
 app.listen(3000, () => console.log("Listening on 3000 port...."));
