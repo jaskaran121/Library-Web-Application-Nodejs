@@ -126,19 +126,16 @@ app.post('/api/create/magazine', (req, res) => {
 
 //create music entry
 app.post('/api/create/music', (req, res) => {
-    con.query(`INSERT INTO music(Type,Title,Artist,Label,Release_Date,ASIN) 
-    VALUES('${req.body.Type}','${req.body.Title}','${req.body.Artist}','${req.body.Label}','${req.body.ReleaseDate}',
-    '${req.body.ASIN}')`, function (err, result) {
+    const music = new models.Music(req.body.Type,req.body.Title,req.body.Artist,req.body.Label,req.body.ReleaseDate,req.body.ASIN);
+    music.insert(function(type){
+        if (type==='success') {
 
-            console.log("Number of records inserted: " + result.affectedRows);
-            if (result.affectedRows) {
-                
-                res.status(200).json({ "success": 'SOEN 341'});
-            }
-            else {
-                res.status(400).json({ "error": 'Error not able to insert value in to database' });
-            }
-        });
+            res.status(200).json({ "success": 'SOEN 341'});
+        }
+        else {
+            res.status(400).json({ "error": 'Error not able to insert value in to database' });
+        }
+    });
 });
 
 //Create movie entry
