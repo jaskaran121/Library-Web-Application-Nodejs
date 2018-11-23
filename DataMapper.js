@@ -101,10 +101,10 @@ class DataMapper {
                     callback('error');
             })
     }
-	static create_Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time, Copies, callback) {
+	static create_Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time, callback) {
         const movie = new models.Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time, null);
         gateway.insert_Movie(movie.getTitle(), movie.getDirector(), movie.getProducers(), movie.getActors(),
-            movie.getLanguage(), movie.getSubtitles(), movie.getDubbed(), movie.getRelease_Date(), movie.getRun_Time(), Copies,function (type) {
+            movie.getLanguage(), movie.getSubtitles(), movie.getDubbed(), movie.getRelease_Date(), movie.getRun_Time(), function (type) {
                 if (type === 'success')
                     callback('success');
                 else
