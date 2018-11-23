@@ -1,6 +1,36 @@
 const db = require('./db-connector');
 
 class Gateway{
+    static insert_Admin(FirstName,LastName,user,password,Email,PhoneNumber,callback) {
+        db.getInstance().query(`INSERT INTO person(FirstName,LastName,UserName,Password,Email,PhoneNumber,Discriminator)
+        VALUES('${FirstName}','${LastName}','${user}',
+        '${password}','${Email}','${PhoneNumber}',"A")`, function (err, result) {
+        if(err)
+        {
+            callback('errorduplicate');
+        }
+        else{
+            if (result.affectedRows) {
+                callback('success')
+            }
+            else
+                callback('error');
+        }
+        });         
+    }
+    static login_Admin(user, password,callback) {
+        db.getInstance().query(`SELECT * FROM person WHERE UserName = '${user}' AND Discriminator = "A"`
+        , function (err, result) {
+            if (result.length > 0) {
+                if (result[0].Password === password)
+                    callback('success');
+                else
+                    callback('error')
+            }
+            else
+                callback('error1');
+        });
+    }
 
     static viewUsers(callback) {
         
