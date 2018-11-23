@@ -1,265 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>Library Catalogue</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->	
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->	
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 </head>
+
 <body>
-	
-		<form class="login100-form validate-form" >
-	<div class="container-login100">
-		<div class="wrap-login100-big p-l-55 p-r-55 p-t-80 p-b-30">
-			
+
+	<form class="login100-form validate-form">
+		<div class="container-login100">
+			<div class="wrap-login100-big p-l-55 p-r-55 p-t-80 p-b-30">
+
 				<span class="login100-form-title p-b-37">
 					Select New Entry &nbsp
-				<select id="entryselector">
-					<option value="Book">Book</option>
-					<option value="Magazine">Magazine</option>
-					<option value="Music">Music</option>
-					<option value="Movie">Movie</option>
-				 </select>
+					<select id="entryselector">
+						<option value="Book">Book</option>
+						<option value="Magazine">Magazine</option>
+						<option value="Music">Music</option>
+						<option value="Movie">Movie</option>
+					</select>
 				</span>
 
 
-<div class="output">
-		
-	<div id = "Book" class = "Entry Book" >
-				<div class="wrap-input100 validate-input m-b-20" data-validate="Enter Title">
-					<input class="input100" type="text" name="Title" placeholder="Title" id="Title">
-					<span class="focus-input100"></span>
-				</div>
+				<div class="output">
+					<div id="Book" class="Entry Book">
+						<div class="wrap-input100 validate-input m-b-20" data-validate="Enter Title">
+							<input class="input100" type="text" name="Title" placeholder="Title" id="Title">
+							<span class="focus-input100"></span>
+						</div>
 
-				<div class="wrap-input100 validate-input m-b-20" data-validate="Enter Author">
-					<input class="input100" type="text" name="Author" placeholder="Author" id="Author">
-					<span class="focus-input100"></span>
-				</div>
+						<div class="wrap-input100 validate-input m-b-20" data-validate="Enter Author">
+							<input class="input100" type="text" name="Author" placeholder="Author" id="Author">
+							<span class="focus-input100"></span>
+						</div>
 
-				<div class="wrap-input100 validate-input m-b-20" data-validate="Enter Format">
-					<input class="input100" type="text" name="Format" placeholder="Format" id="Format">
-					<span class="focus-input100"></span>
-				</div>
+						<div class="wrap-input100 validate-input m-b-20" data-validate="Enter Format">
+							<input class="input100" type="text" name="Format" placeholder="Format" id="Format">
+							<span class="focus-input100"></span>
+						</div>
 
-				<div class="wrap-input100 validate-input m-b-25" data-validate = "Enter Pages">
-					<input class="input100" type="text" name="Pages" placeholder="Pages" id="Pages">
-					<span class="focus-input100"></span>
-				</div>
+						<div class="wrap-input100 validate-input m-b-25" data-validate="Enter Pages">
+							<input class="input100" type="text" name="Pages" placeholder="Pages" id="Pages">
+							<span class="focus-input100"></span>
+						</div>
 
-				<div class="wrap-input100 validate-input m-b-20" data-validate="Enter Publisher">
-					<input class="input100" type="text" name="Publisher" placeholder="Publisher" id="Publisher">
-					<span class="focus-input100"></span>
-				</div>
+						<div class="wrap-input100 validate-input m-b-20" data-validate="Enter Publisher">
+							<input class="input100" type="text" name="Publisher" placeholder="Publisher" id="Publisher">
+							<span class="focus-input100"></span>
+						</div>
 
-				<div class="wrap-input100 validate-input m-b-20" data-validate="Enter Language">
-					<input class="input100" type="text" name="Language" placeholder="Language" id="Language">
-					<span class="focus-input100"></span>
-				</div>
+						<div class="wrap-input100 validate-input m-b-20" data-validate="Enter Language">
+							<input class="input100" type="text" name="Language" placeholder="Language" id="Language">
+							<span class="focus-input100"></span>
+						</div>
 
-                <div class="wrap-input100 validate-input m-b-20" data-validate="Enter ISBN10">
-					<input class="input100" type="text" name="ISBN10" placeholder="ISBN10" id="ISBN10">
-					<span class="focus-input100"></span>
-                </div>
-                
-                <div class="wrap-input100 validate-input m-b-20" data-validate="Enter ISBN13">
-					<input class="input100" type="text" name="ISBN13" placeholder="ISBN13" id="ISBN13">
-					<span class="focus-input100"></span>
-                </div>
-                
-				<div class="container-login100-form-btn" id="create-new-entry-book">
-					<button class="login100-form-btn">
-						Create
-					</button>
-				</div></div>
-				
-				<div id = "Magazine" class = "Entry Magazine">
+						<div class="wrap-input100 validate-input m-b-20" data-validate="Enter ISBN10">
+							<input class="input100" type="text" name="ISBN10" placeholder="ISBN10" id="ISBN10">
+							<span class="focus-input100"></span>
+						</div>
+
+						<div class="wrap-input100 validate-input m-b-20" data-validate="Enter ISBN13">
+							<input class="input100" type="text" name="ISBN13" placeholder="ISBN13" id="ISBN13">
+							<span class="focus-input100"></span>
+						</div>
+
+						<div class="container-login100-form-btn" id="create-new-entry-book">
+							<button class="login100-form-btn">
+								Create
+							</button>
+						</div>
+					</div>
+
+					<div id="Magazine" class="Entry Magazine">
 						<div class="wrap-input100 validate-input-Magazine m-b-20" data-validate="Enter Title">
 							<input class="input100" type="text" name="Title" placeholder="Title" id="Title-Magazine">
 							<span class="focus-input100"></span>
 						</div>
 
 						<div class="wrap-input100 validate-input-Magazine m-b-20" data-validate="Enter Publisher">
-								<input class="input100" type="text" name="Publisher" placeholder="Publisher" id="Publisher-Magazine">
-								<span class="focus-input100"></span>
-							</div>
-							<div class="wrap-input100 validate-input-Magazine m-b-20" data-validate="Enter Language">
-									<input class="input100" type="text" name="Language" placeholder="Language" id="Language-Magazine">
-									<span class="focus-input100"></span>
-								</div>
+							<input class="input100" type="text" name="Publisher" placeholder="Publisher" id="Publisher-Magazine">
+							<span class="focus-input100"></span>
+						</div>
+						<div class="wrap-input100 validate-input-Magazine m-b-20" data-validate="Enter Language">
+							<input class="input100" type="text" name="Language" placeholder="Language" id="Language-Magazine">
+							<span class="focus-input100"></span>
+						</div>
 						<div class="wrap-input100 validate-input-Magazine m-b-20" data-validate="Enter ISBN10">
-								<input class="input100" type="text" name="ISBN10" placeholder="ISBN10" id="ISBN10-Magazine">
-								<span class="focus-input100"></span>
-							</div>
-							
-							<div class="wrap-input100 validate-input-Magazine m-b-20" data-validate="Enter ISBN13">
-								<input class="input100" type="text" name="ISBN13" placeholder="ISBN13" id="ISBN13-Magazine">
-								<span class="focus-input100"></span>
-							</div>
-		
-						
-						
+							<input class="input100" type="text" name="ISBN10" placeholder="ISBN10" id="ISBN10-Magazine">
+							<span class="focus-input100"></span>
+						</div>
+
+						<div class="wrap-input100 validate-input-Magazine m-b-20" data-validate="Enter ISBN13">
+							<input class="input100" type="text" name="ISBN13" placeholder="ISBN13" id="ISBN13-Magazine">
+							<span class="focus-input100"></span>
+						</div>
+
+
+
 						<div class="container-login100-form-btn">
-							<button class="login100-form-btn" id ="create-new-entry-Magazine">
+							<button class="login100-form-btn" id="create-new-entry-Magazine">
 								Create
 							</button>
-						</div></div>
+						</div>
+					</div>
 
-						<div id = "Movie" class = "Entry Movie">
-								<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Title">
-									<input class="input100" type="text" name="Title" placeholder="Title" id="Title-Movie">
-									<span class="focus-input100"></span>
-								</div>
-		
-								<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Director">
-										<input class="input100" type="text" name="Director" placeholder="Director" id="Director-Movie">
-										<span class="focus-input100"></span>
-									</div>
-								<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Producers">
-										<input class="input100" type="text" name="Producers" placeholder="Producers" id="Producers-Movie">
-										<span class="focus-input100"></span>
-									</div>
-									
-									<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Actors">
-										<input class="input100" type="text" name="Actors" placeholder="Actors" id="Actors-Movie">
-										<span class="focus-input100"></span>
-									</div>
-				
-									<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Language">
-											<input class="input100" type="text" name="Language" placeholder="Language" id="Language-Movie">
-											<span class="focus-input100"></span>
-										</div>
-										<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Subtitles">
-												<input class="input100" type="text" name="Subtitles" placeholder="Subtitles" id="Subtitles-Movie">
-												<span class="focus-input100"></span>
-											</div>
-											<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Dubbed">
-													<input class="input100" type="text" name="Dubbed" placeholder="Dubbed" id="Dubbed-Movie">
-													<span class="focus-input100"></span>
-												</div>
-												<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Release Date">
-														<input class="input100" type="text" name="Release Date" placeholder="Release Date" id="Release-Date-Movie">
-														<span class="focus-input100"></span>
-													</div>
-													<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Run Time">
-															<input class="input100" type="text" name="Run Time" placeholder="Run Time" id="Run-Time-Movie">
-															<span class="focus-input100"></span>
-														</div>
-								
-								<div class="container-login100-form-btn">
-									<button class="login100-form-btn" id ="create-new-entry-Movie">
-										Create
-									</button>
-								</div></div>
+					<div id="Movie" class="Entry Movie">
+						<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Title">
+							<input class="input100" type="text" name="Title" placeholder="Title" id="Title-Movie">
+							<span class="focus-input100"></span>
+						</div>
 
-								<div id = "Music" class = "Entry Music">
-										<div class="wrap-input100 validate-input-Music m-b-20" data-validate="Enter Type">
-											<input class="input100" type="text" name="Type" placeholder="Type" id="Type-Music">
-											<span class="focus-input100"></span>
-										</div>
-				
-										<div class="wrap-input100 validate-input-Music m-b-20" data-validate="Enter Title">
-												<input class="input100" type="text" name="Title" placeholder="Title" id="Title-Music">
-												<span class="focus-input100"></span>
-											</div>
-										<div class="wrap-input100 validate-input-Music m-b-20" data-validate="Enter Artist">
-												<input class="input100" type="text" name="Artist" placeholder="Artist" id="Artist-Music">
-												<span class="focus-input100"></span>
-											</div>
-											
-											<div class="wrap-input100 validate-input-Music m-b-20" data-validate="Enter Label">
-												<input class="input100" type="text" name="Label" placeholder="Label" id="Label-Music">
-												<span class="focus-input100"></span>
-											</div>
-						
-											<div class="wrap-input100 validate-input-Music m-b-20" data-validate="Enter Release Date">
-													<input class="input100" type="text" name="Release Date" placeholder="Release Date" id="Release-Date-Music">
-													<span class="focus-input100"></span>
-												</div>
-												<div class="wrap-input100 validate-input-Music m-b-20" data-validate="Enter ASIN">
-														<input class="input100" type="text" name="ASIN" placeholder="ASIN" id="ASIN-Music">
-														<span class="focus-input100"></span>
-													</div>
-										
-										<div class="container-login100-form-btn">
-											<button class="login100-form-btn" id ="create-new-entry-Music">
-												Create
+						<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Director">
+							<input class="input100" type="text" name="Director" placeholder="Director" id="Director-Movie">
+							<span class="focus-input100"></span>
+						</div>
+						<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Producers">
+							<input class="input100" type="text" name="Producers" placeholder="Producers" id="Producers-Movie">
+							<span class="focus-input100"></span>
+						</div>
 
-											</button>
-										</div></div>
+						<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Actors">
+							<input class="input100" type="text" name="Actors" placeholder="Actors" id="Actors-Movie">
+							<span class="focus-input100"></span>
+						</div>
+
+						<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Language">
+							<input class="input100" type="text" name="Language" placeholder="Language" id="Language-Movie">
+							<span class="focus-input100"></span>
+						</div>
+						<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Subtitles">
+							<input class="input100" type="text" name="Subtitles" placeholder="Subtitles" id="Subtitles-Movie">
+							<span class="focus-input100"></span>
+						</div>
+						<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Dubbed">
+							<input class="input100" type="text" name="Dubbed" placeholder="Dubbed" id="Dubbed-Movie">
+							<span class="focus-input100"></span>
+						</div>
+						<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Release Date">
+							<input class="input100" type="text" name="Release Date" placeholder="Release Date" id="Release-Date-Movie">
+							<span class="focus-input100"></span>
+						</div>
+						<div class="wrap-input100 validate-input-Movie m-b-20" data-validate="Enter Run Time">
+							<input class="input100" type="text" name="Run Time" placeholder="Run Time" id="Run-Time-Movie">
+							<span class="focus-input100"></span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<button class="login100-form-btn" id="create-new-entry-Movie">
+								Create
+							</button>
+						</div>
+					</div>
+
+					<div id="Music" class="Entry Music">
+						<div class="wrap-input100 validate-input-Music m-b-20" data-validate="Enter Type">
+							<input class="input100" type="text" name="Type" placeholder="Type" id="Type-Music">
+							<span class="focus-input100"></span>
+						</div>
+
+						<div class="wrap-input100 validate-input-Music m-b-20" data-validate="Enter Title">
+							<input class="input100" type="text" name="Title" placeholder="Title" id="Title-Music">
+							<span class="focus-input100"></span>
+						</div>
+						<div class="wrap-input100 validate-input-Music m-b-20" data-validate="Enter Artist">
+							<input class="input100" type="text" name="Artist" placeholder="Artist" id="Artist-Music">
+							<span class="focus-input100"></span>
+						</div>
+
+						<div class="wrap-input100 validate-input-Music m-b-20" data-validate="Enter Label">
+							<input class="input100" type="text" name="Label" placeholder="Label" id="Label-Music">
+							<span class="focus-input100"></span>
+						</div>
+
+						<div class="wrap-input100 validate-input-Music m-b-20" data-validate="Enter Release Date">
+							<input class="input100" type="text" name="Release Date" placeholder="Release Date" id="Release-Date-Music">
+							<span class="focus-input100"></span>
+						</div>
+						<div class="wrap-input100 validate-input-Music m-b-20" data-validate="Enter ASIN">
+							<input class="input100" type="text" name="ASIN" placeholder="ASIN" id="ASIN-Music">
+							<span class="focus-input100"></span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<button class="login100-form-btn" id="create-new-entry-Music">
+								Create
+
+							</button>
+						</div>
+					</div>
+				</div>
+
+
+
 			</div>
-			
-
-			
 		</div>
-	</div>
-	
-</form>
+
+	</form>
 
 	<div id="dropDownSelect1"></div>
-	
-<!--===============================================================================================-->
+
+	<!--===============================================================================================-->
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="vendor/bootstrap/js/popper.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="vendor/daterangepicker/moment.min.js"></script>
 	<script src="vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
 
 	<script type="text/javascript">
-		
-		var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)flag\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+		var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)flagAdmin\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 		console.log(cookieValue);
-		$(document).ready(function(){
-   if(cookieValue==="false")
-   {
-	   
-	window.location.replace("adminlogin");
-	window.alert("Please Login First");
-   }
-   $('.Entry').hide();
-   
-    });
+		$(document).ready(function () {
+			if (cookieValue === "false") {
+
+				window.location.replace("adminlogin");
+				window.alert("Please Login First");
+			}
+			$('.Entry').hide();
+
+		});
 
 
-$(function() {
-  $('#entryselector').click(function(){
-    $('.Entry').hide();
-    $('#' + $(this).val()).show();
-  });
-});
+		$(function () {
+			$('#entryselector').click(function () {
+				$('.Entry').hide();
+				$('#' + $(this).val()).show();
+			});
+		});
 
 
 
-		</script>
+	</script>
 </body>
+
 </html>
