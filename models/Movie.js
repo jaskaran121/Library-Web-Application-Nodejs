@@ -25,6 +25,14 @@ class Movie{
     {
         return this.Actors;
     }
+    getLanguage()
+    {
+        return this.Language;
+    }
+    getSubtitles()
+    {
+        return this.Subtitles;
+    }
 
    
 }
