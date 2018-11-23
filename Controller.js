@@ -123,7 +123,7 @@ app.post('/api/create/book', (req, res) => {
 
     mapper.create_Book(req.body.Title, req.body.Author, req.body.Format,
         req.body.Pages, req.body.Publisher, req.body.Language,
-        req.body.ISBN10, req.body.ISBN13, function (type) {
+        req.body.ISBN10, req.body.ISBN13, req.body.Copies,function (type) {
             if (type === 'success') {
                 res.status(200).json({ "success": 'SOEN 341' + req.body.Title });
             } else {
