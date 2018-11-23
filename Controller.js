@@ -81,6 +81,32 @@ app.post('/api/signup/admin', (req, res) => {
         })
 });
 
+//Rest Api for sign-up of student
+
+app.post('/api/signup/student', (req, res) => {
+    mapper.insert_Student(req.body.FirstName, req.body.LastName, req.body.UserName, req.body.Password,
+        req.body.Email, req.body.PhoneNumber, function (type) {
+            if (type === 'success')
+                res.status(200).json({ "success": 'SOEN 341' });
+            else if (type === 'error')
+                res.status(400).json({ "error": 'Error not able to insert value in to database' });
+            else
+                res.status(400).json({ "error": 'Enter unique username and email-id' });
+        });
+});
+
+//Rest Api for logging in of student
+
+app.post('/api/student/login', (req, res) => {
+    mapper.login_Student(req.body.UserName, req.body.Password, function (type) {
+        if (type === 'success')
+            res.status(200).json({ "success": 'SOEN 341' });
+        else if (type === 'error')
+            res.status(400).json({ "error": 'password do not match' });
+        else
+            res.status(500).json({ "error": 'User not found' });
+    });
+})
 
 // Viewing active users
 app.post('/api/view/students', (req, res) => {
