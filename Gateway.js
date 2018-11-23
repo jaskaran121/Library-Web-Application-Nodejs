@@ -29,6 +29,19 @@ static viewUsers(callback) {
             });
     }
 
+    static insert_Magazine(Title, Language, Publisher, ISBN10, ISBN13,callback) {
+        db.getInstance().query(`INSERT INTO magazine(Title,Language,Publisher,ISBN10,ISBN13)
+        VALUES('${Title}','${Language}','${Publisher}',
+        '${ISBN10}','${ISBN13}')`, function (err, result) {
+                if (result.affectedRows) {
+                    callback('success');
+                }
+                else {
+                    callback('error');
+                }
+            });
+    }
+
  static delete(entry,id, callback) {
         db.getInstance().query(`DELETE FROM ${entry} WHERE id = ${id}`, function (err, result) {
             console.log(err);
@@ -66,6 +79,21 @@ static viewUsers(callback) {
                 }
             });
     }
+
+    static update_Magazine(Title, Language, Publisher, ISBN10, ISBN13,id,callback)
+    {
+        db.getInstance().query(`UPDATE magazine SET Title = '${Title}' , Language = '${Language}' , 
+        Publisher = '${Publisher}' , ISBN10 = '${ISBN10}' , ISBN13 = '${ISBN13}'
+        WHERE id = '${id}'`,function(err,result)
+        {
+            if(result.affectedRows)
+            {
+                callback('success');
+            }
+            else
+            callback('error');
+        });
+    }
 	
 	static update_Music(Type, Title, Artist, Label, Release_Date, ASIN,id,callback)
     {
@@ -93,6 +121,20 @@ static viewUsers(callback) {
                 else
                     callback('error', null);
             })
+    }
+
+    static searchFilter_Magazine(query,filter,callback)
+    {
+        console.log(filter);
+        db.getInstance().query(`SELECT id,COUNT(id),Title,Language,Publisher,ISBN10,ISBN13 FROM magazine WHERE Title Like '%${query}%' or Language Like '${query}' or
+        Publisher Like '%${query}%' or ISBN10 Like '${query}' or ISBN13 Like '${query}' 
+        GROUP BY Title,Language,Publisher,ISBN10,ISBN13
+        ORDER BY ${filter}`,function(err,result){
+            if(result.length>0)
+            callback('success',result);
+            else
+            callback('error',null);
+        })
     }
 	
 	static searchFilter_Music(query,filter,callback)
