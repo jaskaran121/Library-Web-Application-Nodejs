@@ -155,6 +155,19 @@ class DataMapper {
                     callback('error');
             })
     }
+	 static update_Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time, id, callback) {
+
+        const movie = new models.Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed,
+            Release_Date, Run_Time, id);
+
+        gateway.update_Movie(movie.getTitle(), movie.getDirector(), movie.getProducers(), movie.getActors(), movie.getLanguage(),
+            movie.getSubtitles(), movie.getDubbed(), movie.getRelease_Date(), movie.getRun_Time(), movie.getID(), function (type) {
+                if (callback === 'success')
+                    callback('success');
+                else
+                    callback('error');
+            })
+    }
 	
 	static update_Music(Type, Title, Artist, Label, Release_Date, ASIN, id, callback) {
         const music = new models.Music(Type, Title, Artist, Label, Release_Date, ASIN, id);
