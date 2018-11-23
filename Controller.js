@@ -162,7 +162,7 @@ app.post('/api/create/music', (req, res) => {
 //Create movie entry
 app.post('/api/create/movie', (req, res) => {
     mapper.create_Movie(req.body.Title, req.body.Director, req.body.Producers, req.body.Actors, req.body.Language,
-        req.body.Subtitles, req.body.Dubbed, req.body.ReleaseDate, req.body.RunTime, function (type) {
+        req.body.Subtitles, req.body.Dubbed, req.body.ReleaseDate, req.body.RunTime,req.body.Copies, function (type) {
             if (type === 'success') {
                 res.status(200).json({ "success": 'SOEN 341' });
             }
