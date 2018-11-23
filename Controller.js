@@ -68,6 +68,7 @@ app.post('/api/create/book', (req, res) => {
         });
 });
 
+//Update entry
 app.post('/api/update/:entry/:id', (req, res) => {
     if (req.params.entry === 'Book') {
         mapper.update_Book(req.body.Title, req.body.Author, req.body.Format,
@@ -80,11 +81,11 @@ app.post('/api/update/:entry/:id', (req, res) => {
             })
     }}
 
+//Search      
 app.get('/api/search/:entry/:query/:filter', (req, res) => {
     const entry = req.params.entry;
     const query = req.params.query;
     const filter = req.params.filter;
-    //Jaskaran
     if (entry === "Book") {
         if (filter === "Random") {
             mapper.searchFilter_Book(query, null, function (type, result) {
