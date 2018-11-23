@@ -43,6 +43,32 @@ class DataMapper {
             });
     }
 
+     static insert_Student(FirstName, LastName, UserName, Password, Email, PhoneNumber, callback) {
+        const student = new models.Student(FirstName, LastName, UserName, Password, Email, PhoneNumber);
+
+        gateway.insert_Student(student.getFirstName(), student.getLastName(), student.getUserName(), student.getPassword(),
+            student.getEmail(), student.getPhoneNumber(), function (type) {
+                if (type === 'success')
+                    callback('success');
+                else if (type === 'error')
+                    callback('error');
+                else
+                    callback('errorunique');
+            });
+    }
+
+    static login_Student(UserName, Password, callback) {
+        const student = new models.Student(null, null, UserName, Password, null, null);
+
+        gateway.login_Student(student.getUserName(), student.getPassword(), function (type) {
+            if (type === 'success')
+                callback('success');
+            else if (type === 'error')
+                callback('error');
+            else
+                callback('error1');
+        })
+    
 	static create_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, callback) {
         const book = new models.Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, null);
         gateway.insert_Book(book.getTitle(), book.getAuthor(), book.getFormat(), book.getPages(), book.getPublisher(),
