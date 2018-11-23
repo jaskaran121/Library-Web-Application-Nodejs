@@ -133,10 +133,11 @@ app.post('/api/create/book', (req, res) => {
 });
 
 //create magazine entry
+
 app.post('/api/create/magazine', (req, res) => {
 
     mapper.create_Magazine(req.body.Title, req.body.Language, req.body.Publisher,
-        req.body.ISBN10, req.body.ISBN13, function (type) {
+        req.body.ISBN10, req.body.ISBN13, req.body.Copies, function (type) {
             if (type === 'success') {
                 res.status(200).json({ "success": 'SOEN 341' });
             }
