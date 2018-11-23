@@ -3,17 +3,6 @@ const gateway = require('./Gateway');
 
 class DataMapper {
 
-
-    static viewActiveUsers(callback) {
-        gateway.viewUsers(function (type, result) {
-            if (type === 'success') {
-                callback('success', result);
-            }
-            else
-                callback('error', null);
-        })
-    }
-
     static login_Admin(user, password, callback) {
         const admin = new models.Admin(null, null, user, password, null, null);
         gateway.login_Admin(admin.getUserName(), admin.getPassword(), function (type) {
@@ -43,6 +32,16 @@ class DataMapper {
             });
     }
 
+    static viewActiveUsers(callback) {
+        gateway.viewUsers(function (type, result) {
+            if (type === 'success') {
+                callback('success', result);
+            }
+            else
+                callback('error', null);
+        })
+    }
+
     static insert_Student(FirstName, LastName, UserName, Password, Email, PhoneNumber, callback) {
         const student = new models.Student(FirstName, LastName, UserName, Password, Email, PhoneNumber);
 
@@ -68,6 +67,7 @@ class DataMapper {
             else
                 callback('error1');
         })
+    }    
     
 	static create_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, callback) {
         const book = new models.Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, null);
@@ -78,6 +78,17 @@ class DataMapper {
                 else
                     callback('error');
             })
+    }
+
+    static create_Magazine(Title, Language, Publisher, ISBN10, ISBN13, callback) {
+        const magazine = new models.Magazine(Title, Language, Publisher, ISBN10, ISBN13, null);
+        gateway.insert_Magazine(magazine.getTitle(), magazine.getLanguage(), magazine.getPublisher(),
+            magazine.getISBN10(), magazine.getISBN13(), function (type) {
+                if (type === 'success')
+                    callback('success');
+                else
+                    callback('error');
+            });
     }
 	
 	static create_Music(Type, Title, Artist, Label, Release_Date, ASIN, callback) {
@@ -90,8 +101,26 @@ class DataMapper {
                     callback('error');
             })
     }
+	static create_Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time, callback) {
+        const movie = new models.Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time, null);
+        gateway.insert_Movie(movie.getTitle(), movie.getDirector(), movie.getProducers(), movie.getActors(),
+            movie.getLanguage(), movie.getSubtitles(), movie.getDubbed(), movie.getRelease_Date(), movie.getRun_Time(), function (type) {
+                if (type === 'success')
+                    callback('success');
+                else
+                    callback('error');
+            });
+    }
 
-
+    static show(entry, callback) {
+        gateway.show(entry, function (type, result) {
+            if (type === 'success') {
+                callback('success', result)
+            }
+            else
+                callback('error', null);
+        });
+    }
  
     static delete(entry, id, callback) {
         gateway.delete(entry, id, function (type) {
@@ -103,8 +132,6 @@ class DataMapper {
         });
     }
 
-
-
     static update_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, id, callback) {
         const book = new models.Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, id);
 
@@ -115,6 +142,34 @@ class DataMapper {
                 }
                 else
                     callback('error');
+            })
+    }
+
+    static update_Magazine(Title, Language, Publisher, ISBN10, ISBN13, id, callback) {
+        const magazine = new models.Magazine(Title, Language, Publisher, ISBN10, ISBN13, id);
+        gateway.update_Magazine(magazine.getTitle(), magazine.getLanguage(), magazine.getPublisher(), magazine.getISBN10()
+            , magazine.getISBN13(), magazine.getID(), function (type) {
+                if (type === 'success')
+                    callback('success');
+                else
+                    callback('error');
+            })
+    }
+	 static update_Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time, id, callback) {
+
+        const movie = new models.Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed,
+            Release_Date, Run_Time, id);
+
+        gateway.update_Movie(movie.getTitle(), movie.getDirector(), movie.getProducers(), movie.getActors(), movie.getLanguage(),
+            movie.getSubtitles(), movie.getDubbed(), movie.getRelease_Date(), movie.getRun_Time(), movie.getID(), function (type) {
+                if (type === 'success')    
+                {
+                    callback('success');}
+                else
+                {
+                    callback('error');
+                }
+                    
             })
     }
 	
@@ -138,9 +193,26 @@ class DataMapper {
                 callback('error',null);
         })
     }
+
+    static searchFilter_Magazine(query,filter,callback){
+        gateway.searchFilter_Magazine(query, filter, function (type, result) {
+            if (type === 'success')
+                callback('success',result);
+            else
+                callback('error',null);
+        })
+    }
 	
 	static searchFilter_Music(query,filter,callback){
         gateway.searchFilter_Music(query, filter, function (type, result) {
+            if (type === 'success')
+                callback('success',result);
+            else
+                callback('error',null);
+        })
+    }
+	static searchFilter_Movie(query,filter,callback){
+        gateway.searchFilter_Movie(query, filter, function (type, result) {
             if (type === 'success')
                 callback('success',result);
             else

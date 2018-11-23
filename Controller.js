@@ -132,10 +132,37 @@ app.post('/api/create/book', (req, res) => {
         });
 });
 
+//create magazine entry
+app.post('/api/create/magazine', (req, res) => {
+
+    mapper.create_Magazine(req.body.Title, req.body.Language, req.body.Publisher,
+        req.body.ISBN10, req.body.ISBN13, function (type) {
+            if (type === 'success') {
+                res.status(200).json({ "success": 'SOEN 341' });
+            }
+            else {
+                res.status(400).json({ "error": 'Error not able to insert value in to database' });
+            }
+        });
+});
+
 //create music entry
 app.post('/api/create/music', (req, res) => {
     mapper.create_Music(req.body.Type, req.body.Title, req.body.Artist, req.body.Label,
         req.body.ReleaseDate, req.body.ASIN, function (type) {
+            if (type === 'success') {
+                res.status(200).json({ "success": 'SOEN 341' });
+            }
+            else {
+                res.status(400).json({ "error": 'Error not able to insert value in to database' });
+            }
+        })
+});
+
+//Create movie entry
+app.post('/api/create/movie', (req, res) => {
+    mapper.create_Movie(req.body.Title, req.body.Director, req.body.Producers, req.body.Actors, req.body.Language,
+        req.body.Subtitles, req.body.Dubbed, req.body.ReleaseDate, req.body.RunTime, function (type) {
             if (type === 'success') {
                 res.status(200).json({ "success": 'SOEN 341' });
             }
@@ -157,6 +184,18 @@ app.get('/api/delete/:entry/:id', (req, res) => {
     });
 });
 
+//Show data items
+app.get('/api/show/:entry', (req, res) => {
+    var entry = req.params.entry;
+
+    mapper.show(entry, function (type, result) {
+        if (type === 'success')
+            res.status(200).json({ "success": 'SOEN 341', "id": result });
+        else
+            res.status(500).json({ "error": 'Not able to fetch values' });
+    });
+});
+
 //Update entry
 app.post('/api/update/:entry/:id', (req, res) => {
     if (req.params.entry === 'Book') {
@@ -168,6 +207,27 @@ app.post('/api/update/:entry/:id', (req, res) => {
                 else
                     res.status(500).json({ "error": 'Not able to update values' });
             })
+    }
+
+    if (req.params.entry === 'Magazine') {
+        mapper.update_Magazine(req.body.Title, req.body.Language, req.body.Publisher, req.body.ISBN10, req.body.ISBN13,
+            req.params.id, function (type) {
+                if (type === 'success')
+                    res.status(200).json({ "success": 'SOEN 341' });
+                else
+                    res.status(500).json({ "error": 'Not able to update values' });
+            })
+
+    }
+	if (req.params.entry === 'Movie') {
+        mapper.update_Movie(req.body.Title, req.body.Director, req.body.Producers, req.body.Actors, req.body.Language,
+            req.body.Subtitles, req.body.Dubbed, req.body.ReleaseDate, req.body.RunTime, req.params.id, function (type) {
+                if (type === 'success')
+                    res.status(200).json({ "success": 'SOEN 341' });
+                else
+                    res.status(500).json({ "error": 'Not able to update values' });
+            });
+
     }
 	
 	if (req.params.entry === 'Music') {
@@ -210,6 +270,31 @@ app.get('/api/search/:entry/:query/:filter', (req, res) => {
             });
         }
     }
+
+    if (entry === "Magazine") {
+
+        if (filter === "Random") {
+            mapper.searchFilter_Magazine(query, null, function (type, result) {
+                if (type === 'success')
+                    res.status(200).json({
+                        "success": "soen 341", "id": result
+                    });
+                else
+                    res.status(400).json({ "error": 'No results found' });
+            });
+        }
+        else {
+            mapper.searchFilter_Magazine(query, filter, function (type, result) {
+                if (type === 'success')
+                    res.status(200).json({
+                        "success": "soen 341", "id": result
+                    });
+                else
+                    res.status(400).json({ "error": 'No results found' });
+            });
+        }
+
+    }
 	
 	if (entry === "Music") {
 
@@ -235,6 +320,28 @@ app.get('/api/search/:entry/:query/:filter', (req, res) => {
         }
 
     }
-	
+if (entry === "Movie") {
+
+        if (filter === "Random") {
+            mapper.searchFilter_Movie(query, null, function (type, result) {
+                if (type === 'success')
+                    res.status(200).json({
+                        "success": "soen 341", "id": result
+                    });
+                else
+                    res.status(400).json({ "error": 'No results found' });
+            });
+        }
+        else {
+            mapper.searchFilter_Movie(query, filter, function (type, result) {
+                if (type === 'success')
+                    res.status(200).json({
+                        "success": "soen 341", "id": result
+                    });
+                else
+                    res.status(400).json({ "error": 'No results found' });
+            });
+        }
+    }
 });
 app.listen(3000, () => console.log("Listening on 3000 port...."));
