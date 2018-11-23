@@ -194,12 +194,12 @@ class DataMapper {
         })
     }
 
-    static searchFilter_Magazine(query,filter,callback){
+    static searchFilter_Magazine(query, filter, callback) {
         gateway.searchFilter_Magazine(query, filter, function (type, result) {
             if (type === 'success')
-                callback('success',result);
+                callback('success', result);
             else
-                callback('error',null);
+                callback('error', null);
         })
     }
 	
