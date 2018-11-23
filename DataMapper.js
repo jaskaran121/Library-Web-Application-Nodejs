@@ -3,16 +3,6 @@ const gateway = require('./Gateway');
 
 class DataMapper {
 
-    static viewActiveUsers(callback) {
-        gateway.viewUsers(function (type, result) {
-            if (type === 'success') {
-                callback('success', result);
-            }
-            else
-                callback('error', null);
-        })
-    }
-
     static login_Admin(user, password, callback) {
         const admin = new models.Admin(null, null, user, password, null, null);
         gateway.login_Admin(admin.getUserName(), admin.getPassword(), function (type) {
@@ -40,6 +30,16 @@ class DataMapper {
                 else
                     callback('error');
             });
+    }
+
+    static viewActiveUsers(callback) {
+        gateway.viewUsers(function (type, result) {
+            if (type === 'success') {
+                callback('success', result);
+            }
+            else
+                callback('error', null);
+        })
     }
 
     static insert_Student(FirstName, LastName, UserName, Password, Email, PhoneNumber, callback) {
