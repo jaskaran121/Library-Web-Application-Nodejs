@@ -43,7 +43,7 @@ class DataMapper {
             });
     }
 
-     static insert_Student(FirstName, LastName, UserName, Password, Email, PhoneNumber, callback) {
+    static insert_Student(FirstName, LastName, UserName, Password, Email, PhoneNumber, callback) {
         const student = new models.Student(FirstName, LastName, UserName, Password, Email, PhoneNumber);
 
         gateway.insert_Student(student.getFirstName(), student.getLastName(), student.getUserName(), student.getPassword(),
