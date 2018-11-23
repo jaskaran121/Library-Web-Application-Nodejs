@@ -102,6 +102,15 @@ class DataMapper {
             })
     }
 
+    static show(entry, callback) {
+        gateway.show(entry, function (type, result) {
+            if (type === 'success') {
+                callback('success', result)
+            }
+            else
+                callback('error', null);
+        });
+    }
  
     static delete(entry, id, callback) {
         gateway.delete(entry, id, function (type) {
