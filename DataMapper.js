@@ -3,6 +3,17 @@ const gateway = require('./Gateway');
 
 class DataMapper {
 
+
+    static viewActiveUsers(callback) {
+        gateway.viewUsers(function (type, result) {
+            if (type === 'success') {
+                callback('success', result);
+            }
+            else
+                callback('error', null);
+        })
+    }
+
     static login_Admin(user, password, callback) {
         const admin = new models.Admin(null, null, user, password, null, null);
         gateway.login_Admin(admin.getUserName(), admin.getPassword(), function (type) {
@@ -53,6 +64,20 @@ class DataMapper {
                     callback('error');
             })
     }
+
+
+ 
+    static delete(entry, id, callback) {
+        gateway.delete(entry, id, function (type) {
+            if (type === 'success') {
+                callback('success')
+            }
+            else
+                callback('error');
+        });
+    }
+
+
 
     static update_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, id, callback) {
         const book = new models.Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, id);
