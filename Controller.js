@@ -54,6 +54,34 @@ app.get('/modify',(req,res) =>{
     res.sendFile(__dirname + '/frontend/modify.html');
 })
 
+//Rest Api for loggin in admininstrator
+app.post('/api/login', (req, res) => {
+
+    mapper.login_Admin(req.body.user, req.body.password, function (type) {
+        if (type === 'success')
+            res.status(200).json({ "success": 'SOEN 341' });
+        else if (type === 'error')
+            res.status(400).json({ "error": 'Password do not match not' });
+        else
+            res.status(500).json({ "error": 'User not found' });
+    })
+});
+
+//Rest Api for sign-up of admininstrator
+app.post('/api/signup/admin', (req, res) => {
+    mapper.insert_Admin(req.body.FirstName, req.body.LastName, req.body.user, req.body.password, req.body.Email,
+        req.body.PhoneNumber, function (type) {
+            if (type === 'success') {
+                res.status(200).json({ "success": 'SOEN 341' });
+            }
+            else if (type === 'error')
+                res.status(400).json({ "error": 'Value unable to insert' });
+            else
+                res.status(400).json({ "error": 'Enter unique username and email-id' });
+        })
+});
+
+
 // Viewing active users
 app.post('/api/view/students', (req, res) => {
     mapper.viewActiveUsers(function (type, result) {
