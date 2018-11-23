@@ -310,6 +310,28 @@ app.get('/api/search/:entry/:query/:filter', (req, res) => {
         }
 
     }
-	
+if (entry === "Movie") {
+
+        if (filter === "Random") {
+            mapper.searchFilter_Movie(query, null, function (type, result) {
+                if (type === 'success')
+                    res.status(200).json({
+                        "success": "soen 341", "id": result
+                    });
+                else
+                    res.status(400).json({ "error": 'No results found' });
+            });
+        }
+        else {
+            mapper.searchFilter_Movie(query, filter, function (type, result) {
+                if (type === 'success')
+                    res.status(200).json({
+                        "success": "soen 341", "id": result
+                    });
+                else
+                    res.status(400).json({ "error": 'No results found' });
+            });
+        }
+    }
 });
 app.listen(3000, () => console.log("Listening on 3000 port...."));
