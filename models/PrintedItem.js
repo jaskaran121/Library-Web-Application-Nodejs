@@ -46,7 +46,7 @@ class PrintedItem{
 
     getISBN13()
     {
-        this.ISBN13;
+       return this.ISBN13;
     }
     setISBN13(ISBN13)
     {

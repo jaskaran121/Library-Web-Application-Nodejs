@@ -69,10 +69,11 @@ class DataMapper {
         })
     }    
     
-	static create_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, callback) {
+	static create_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13,Copies, callback) {
         const book = new models.Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, null);
+       
         gateway.insert_Book(book.getTitle(), book.getAuthor(), book.getFormat(), book.getPages(), book.getPublisher(),
-            book.getLanguage(), book.getISBN10(), book.getISBN13(), function (type) {
+            book.getLanguage(), book.getISBN10(), book.getISBN13(),Copies, function (type) {
                 if (type === 'success')
                     callback('success');
                 else
@@ -80,10 +81,10 @@ class DataMapper {
             })
     }
 
-    static create_Magazine(Title, Language, Publisher, ISBN10, ISBN13, callback) {
+    static create_Magazine(Title, Language, Publisher, ISBN10, ISBN13, Copies, callback) {
         const magazine = new models.Magazine(Title, Language, Publisher, ISBN10, ISBN13, null);
         gateway.insert_Magazine(magazine.getTitle(), magazine.getLanguage(), magazine.getPublisher(),
-            magazine.getISBN10(), magazine.getISBN13(), function (type) {
+            magazine.getISBN10(), magazine.getISBN13(), Copies, function (type) {
                 if (type === 'success')
                     callback('success');
                 else
@@ -91,20 +92,21 @@ class DataMapper {
             });
     }
 	
-	static create_Music(Type, Title, Artist, Label, Release_Date, ASIN, callback) {
+	static create_Music(Type, Title, Artist, Label, Release_Date, ASIN, Copies,callback) {
         const music = new models.Music(Type, Title, Artist, Label, Release_Date, ASIN, null);
         gateway.insert_Music(music.getType(), music.getTitle(), music.getArtist(), music.getLabel(), music.getRelease_Date(),
-            music.getASIN(), function (type) {
+            music.getASIN(), Copies,function (type) {
                 if (type === 'success')
                     callback('success');
                 else
                     callback('error');
             })
     }
-	static create_Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time, callback) {
+	
+	static create_Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time, Copies, callback) {
         const movie = new models.Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time, null);
         gateway.insert_Movie(movie.getTitle(), movie.getDirector(), movie.getProducers(), movie.getActors(),
-            movie.getLanguage(), movie.getSubtitles(), movie.getDubbed(), movie.getRelease_Date(), movie.getRun_Time(), function (type) {
+            movie.getLanguage(), movie.getSubtitles(), movie.getDubbed(), movie.getRelease_Date(), movie.getRun_Time(), Copies,function (type) {
                 if (type === 'success')
                     callback('success');
                 else
@@ -162,16 +164,19 @@ class DataMapper {
 
         gateway.update_Movie(movie.getTitle(), movie.getDirector(), movie.getProducers(), movie.getActors(), movie.getLanguage(),
             movie.getSubtitles(), movie.getDubbed(), movie.getRelease_Date(), movie.getRun_Time(), movie.getID(), function (type) {
-                if (callback === 'success')
-                    callback('success');
+                if (type === 'success')    
+                {
+                    callback('success');}
                 else
+                {
                     callback('error');
+                }
+                    
             })
     }
 	
 	static update_Music(Type, Title, Artist, Label, Release_Date, ASIN, id, callback) {
         const music = new models.Music(Type, Title, Artist, Label, Release_Date, ASIN, id);
-
         gateway.update_Music(music.getType(), music.getTitle(), music.getArtist(), music.getLabel(),
             music.getRelease_Date(), music.getASIN(), music.getID(), function (type) {
                 if (type === 'success')
@@ -190,12 +195,12 @@ class DataMapper {
         })
     }
 
-    static searchFilter_Magazine(query,filter,callback){
+    static searchFilter_Magazine(query, filter, callback) {
         gateway.searchFilter_Magazine(query, filter, function (type, result) {
             if (type === 'success')
-                callback('success',result);
+                callback('success', result);
             else
-                callback('error',null);
+                callback('error', null);
         })
     }
 	
@@ -207,7 +212,8 @@ class DataMapper {
                 callback('error',null);
         })
     }
-	 static searchFilter_Movie(query,filter,callback){
+	
+	static searchFilter_Movie(query,filter,callback){
         gateway.searchFilter_Movie(query, filter, function (type, result) {
             if (type === 'success')
                 callback('success',result);

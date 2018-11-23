@@ -78,14 +78,12 @@
 </body>
 
 <script type="text/javascript">
+
 	//TO maintain session a flag is set in the cookie
+	$(document).ready(function () {
 	document.cookie = "flagAdmin=false";
 	document.cookie = "flagStudent=false";
-	var cookieValueAdmin = document.cookie.replace(/(?:(?:^|.*;\s*)flagAdmin\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-	var cookieValueStudent = document.cookie.replace(/(?:(?:^|.*;\s*)flagAdmin\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-	console.log(cookieValueAdmin);
-	console.log(cookieValueStudent);
-
+		});
 </script>
 
 </html>

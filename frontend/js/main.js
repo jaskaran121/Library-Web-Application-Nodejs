@@ -19,46 +19,6 @@
 
     /*==================================================================
     [ Validate ]*/
-    var input = $('.validate-input .input100');
-
-    $('#sign-in-admin').on('submit', function ($event) {
-        $event.preventDefault();
-        var check = true;
-
-        for (var i = 0; i < input.length; i++) {
-            if (validate(input[i]) == false) {
-                showValidate(input[i]);
-                check = false;
-            }
-        }
-
-        if (check == true) {
-            $.ajax({
-                type: "POST",
-                url: "/api/login",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify({
-                    "user": $("#user").val(),
-                    "password": $("#password").val()
-                }),
-                success: function (data) {
-
-                    document.cookie = "flag=true";
-
-                    console.log(document.cookie);
-
-                    window.location.replace("adminhome");
-
-                   // console.log(document.cookie);
-                },
-                error: function (error) {
-                    console.log(error);
-                    window.alert(error.responseJSON.error);
-                }
-            });
-        }
-    });
 
 
     $('.validate-form .input100').each(function () {
@@ -100,20 +60,47 @@
         $(thisAlert).find('.btn-hide-validate').remove();
     }
 
+
+    $('#sign-in-admin').on('submit', function ($event) {
+        $event.preventDefault();
+        var check = true;
+
+        if (!$("#user").val() || !$("#password").val()) {
+            window.alert("Enter Credentials");
+            check = false;
+        }
+
+        if (check == true) {
+            $.ajax({
+                type: "POST",
+                url: "/api/login",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({
+                    "user": $("#user").val(),
+                    "password": $("#password").val()
+                }),
+                success: function (data) {
+                    document.cookie = "flagAdmin=true";
+                    window.location.replace("adminhome");
+                },
+                error: function (error) {
+                    console.log(error);
+                    window.alert(error.responseJSON.error);
+                }
+            });
+        }
+    });
     //Sign-up for admin
-    var input = $('.validate-input .input100');
 
     $('#sign-up-admin').on('submit', function ($event) {
         $event.preventDefault();
         var check = true;
-
-        for (var i = 0; i < input.length; i++) {
-            if (validate(input[i]) == false) {
-                showValidate(input[i]);
-                check = false;
-            }
+        if (!$("#user").val() || !$("#password").val() || !$("#FirstName").val() || !$("#Email").val() || !$("#PhoneNumber").val()) {
+            window.alert("Enter values");
+            check = false;
         }
-
+       
         if (check == true) {
             $.ajax({
                 type: "POST",
@@ -149,11 +136,9 @@
         $event.preventDefault();
         var check = true;
 
-        for (var i = 0; i < input.length; i++) {
-            if (validate(input[i]) == false) {
-                showValidate(input[i]);
-                check = false;
-            }
+        if (!$("#user").val() || !$("#password").val()) {
+            window.alert("Enter credentials");
+            check = false;
         }
 
         if (check == true) {
@@ -167,9 +152,9 @@
                     "Password": $("#password").val()
                 }),
                 success: function (data) {
-                    console.log(data.id);
-                    window.alert("Login-Successfull");
-                   // document.write(JSON.stringify(data.id));
+                    document.cookie = "flagStudent=true";
+                    window.location.replace("studenthome");
+                    // document.write(JSON.stringify(data.id));
                 },
                 error: function (error) {
                     window.alert(error.responseJSON.error);
@@ -184,12 +169,13 @@
         $event.preventDefault();
         var check = true;
 
-        for (var i = 0; i < input.length; i++) {
-            if (validate(input[i]) == false) {
-                showValidate(input[i]);
-                check = false;
-            }
+        if (!$("#FirstName").val() || !$("#LastName").val || !$("#UserName").val() || !$("#Password").val() || !$("#Email").val()
+            || !$("#PhoneNumber").val()) {
+            window.alert("Enter all the Values");
+            check = false;
         }
+
+
 
         if (check == true) {
             $.ajax({
@@ -218,40 +204,18 @@
     });
 
 
-    //View active users
-    $('#admin-home').on("click", function ($event) {
-         $event.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: "/api/view/students",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
-                console.log(JSON.stringify(data.id));
-                document.write(JSON.stringify(data.id));
-            },
-            error: function (error) {
-                console.log(error);
-                window.alert(error.responseJSON.error);
-            }
-        });
-    });
 
-    var input = $('#validate-input .input100');
-//console.log(input);
     $('#create-new-entry-book').on("click", function ($event) {
         $event.preventDefault();
         var check = true;
-//console.log("New book created");
-        for (var i = 0; i < input.length; i++) {
-            if (validate(input[i]) == false) {
-                showValidate(input[i]);
-                check = false;
-            }
-        }
 
+        if (!$("#Title").val() || !$("#Author").val() || !$("#Format").val() || !$("#Pages").val() ||
+            !$("#Publisher").val() || !$("#Language").val() || !$("#ISBN10").val() || !$("#ISBN13").val()) {
+            window.alert("Enter all the values");
+            check = false;
+        }
         if (check == true) {
-          
+
             $.ajax({
                 type: "POST",
                 url: "/api/create/book",
@@ -265,7 +229,8 @@
                     "Publisher": $("#Publisher").val(),
                     "Language": $("#Language").val(),
                     "ISBN10": $("#ISBN10").val(),
-                    "ISBN13": $("#ISBN13").val()
+                    "ISBN13": $("#ISBN13").val(),
+                    "Copies": $("#copies").val()
                 }),
                 success: function (data) {
                     window.alert("Created Entry Successfully");
@@ -280,22 +245,19 @@
     });
 
     //Entry for magazine
-    var input = $('#validate-input-Magazine .input100');
-//console.log(input);
+
     $('#create-new-entry-Magazine').on("click", function ($event) {
         $event.preventDefault();
         var check = true;
-//console.log("New book created");
-        for (var i = 0; i < input.length; i++) {
-            if (validate(input[i]) == false) {
-                showValidate(input[i]);
-                check = false;
-            }
+        if (!$("#Title-Magazine").val() || !$("#Publisher-Magazine").val() || !$("#Language-Magazine").val()
+            || !$("#ISBN10-Magazine").val() || !$("#ISBN13-Magazine").val()) {
+            window.alert("Enter all the values");
+            check = false;
         }
 
         if (check == true) {
             $.ajax({
-            type: "POST",
+                type: "POST",
                 url: "/api/create/magazine",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -304,7 +266,8 @@
                     "Publisher": $("#Publisher-Magazine").val(),
                     "Language": $("#Language-Magazine").val(),
                     "ISBN10": $("#ISBN10-Magazine").val(),
-                    "ISBN13": $("#ISBN13-Magazine").val()
+                    "ISBN13": $("#ISBN13-Magazine").val(),
+                    "Copies": $("#copies-Magazine").val()
                 }),
                 success: function (data) {
                     window.alert("Created Entry Successfully");
@@ -319,22 +282,21 @@
     });
 
     //Entry for movie
-    var input = $('#validate-input-Movie .input100');
-//console.log(input);
+
     $('#create-new-entry-Movie').on("click", function ($event) {
         $event.preventDefault();
         var check = true;
-//console.log("New book created");
-        for (var i = 0; i < input.length; i++) {
-            if (validate(input[i]) == false) {
-                showValidate(input[i]);
-                check = false;
-            }
+
+        if (!$("#Title-Movie").val() || !$("#Director-Movie").val() || !$("#Producers-Movie").val() || !$("#Actors-Movie").val()
+            || !$("#Language-Movie").val() || !$("#Subtitles-Movie").val() || !$("#Dubbed-Movie").val() || !$("#Release-Date-Movie").val()
+            || !$("#Run-Time-Movie").val()) {
+            window.alert("Enter all the values");
+            check = false;
         }
 
         if (check == true) {
             $.ajax({
-            type: "POST",
+                type: "POST",
                 url: "/api/create/movie",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -347,7 +309,8 @@
                     "Subtitles": $("#Subtitles-Movie").val(),
                     "Dubbed": $("#Dubbed-Movie").val(),
                     "ReleaseDate": $("#Release-Date-Movie").val(),
-                    "RunTime": $("#Run-Time-Movie").val()
+                    "RunTime": $("#Run-Time-Movie").val(),
+                    "Copies": $("#copies-Movie").val()
                 }),
                 success: function (data) {
                     window.alert("Created Entry Successfully");
@@ -362,22 +325,18 @@
     });
 
     //Entry for music
-    var input = $('#validate-input-Music .input100');
-//console.log(input);
+
     $('#create-new-entry-Music').on("click", function ($event) {
         $event.preventDefault();
         var check = true;
-//console.log("New book created");
-        for (var i = 0; i < input.length; i++) {
-            if (validate(input[i]) == false) {
-                showValidate(input[i]);
-                check = false;
-            }
+        if (!$("#Title-Music").val() || !$("#Type-Music").val() || !$("#Artist-Music").val() || !$("#Label-Music").val()
+            || !$("#Release-Date-Music").val() || !$("#ASIN-Music").val()) {
+            window.alert("Enter all the values");
+            check = false;
         }
-
         if (check == true) {
             $.ajax({
-            type: "POST",
+                type: "POST",
                 url: "/api/create/music",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -387,7 +346,8 @@
                     "Artist": $("#Artist-Music").val(),
                     "Label": $("#Label-Music").val(),
                     "ReleaseDate": $("#Release-Date-Music").val(),
-                    "ASIN": $("#ASIN-Music").val()
+                    "ASIN": $("#ASIN-Music").val(),
+                    "Copies": $("#copies-Music").val()
                 }),
                 success: function (data) {
                     window.alert("Created Entry Successfully");
