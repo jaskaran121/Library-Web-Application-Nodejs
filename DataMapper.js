@@ -69,11 +69,10 @@ class DataMapper {
         })
     }    
     
-	static create_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13,Copies, callback) {
+	static create_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, callback) {
         const book = new models.Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, null);
-       
         gateway.insert_Book(book.getTitle(), book.getAuthor(), book.getFormat(), book.getPages(), book.getPublisher(),
-            book.getLanguage(), book.getISBN10(), book.getISBN13(),Copies, function (type) {
+            book.getLanguage(), book.getISBN10(), book.getISBN13(), function (type) {
                 if (type === 'success')
                     callback('success');
                 else
