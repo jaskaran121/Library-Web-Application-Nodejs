@@ -2,7 +2,7 @@ const db = require('./db-connector');
 
 class Gateway{
 
-static viewUsers(callback) {
+    static viewUsers(callback) {
         
         db.getInstance().query(`SELECT * FROM person WHERE Discriminator = 'S'`
         , function (err, result) {
@@ -14,6 +14,40 @@ static viewUsers(callback) {
                 callback('error', null);
             }
         })
+    }
+
+    static insert_Student(FirstName,LastName,UserName,Password,Email,PhoneNumber,callback) {
+        
+        db.getInstance().query(`INSERT INTO person(FirstName,LastName,UserName,Password,Email,PhoneNumber,Discriminator)
+           VALUES('${FirstName}','${LastName}','${UserName}',
+           '${Password}','${Email}','${PhoneNumber}','S')`, function (err, result) {
+               
+                if (err) {
+                    callback('errorunique');
+                }
+                else {
+                    if (result.affectedRows) {
+                        callback('success');
+                    }
+                    else {
+                        callback('error');
+                    }
+                }
+            });
+    }
+
+    static login_Student(UserName, Password,callback) {
+        db.getInstance().query(`SELECT * FROM person where UserName='${UserName}' AND Discriminator = 'S'
+        `, function (err, res) {
+            if (res.length > 0) {
+                if (res[0].Password === Password)
+                    callback('success');
+                else
+                    callback('error');
+            }
+            else
+                callback('error1');
+        });
     }
 
 	static insert_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13,callback) {
@@ -42,7 +76,18 @@ static viewUsers(callback) {
             });
     }
 
- static delete(entry,id, callback) {
+    static show(entry,callback) {
+
+        db.getInstance().query(`SELECT * FROM ${entry}`, function (err, result) {
+            if (result.length > 0) {
+                callback('success', result)
+            }
+            else
+                callback('error',null);
+        });
+    }
+    
+    static delete(entry,id, callback) {
         db.getInstance().query(`DELETE FROM ${entry} WHERE id = ${id}`, function (err, result) {
             console.log(err);
             if (result.affectedRows) {
