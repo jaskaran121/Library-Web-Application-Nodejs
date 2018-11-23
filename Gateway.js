@@ -80,45 +80,80 @@ class Gateway{
         });
     }
 
-	static insert_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13,callback) {
-        db.getInstance().query(`INSERT INTO book(Title,Author,Format,Pages,Publisher,Language,ISBN10,ISBN13)
-        VALUES('${Title}','${Author}','${Format}',
-        '${Pages}','${Publisher}','${Language}','${ISBN10}','${ISBN13}')`, function (err, result) {
-                if (result.affectedRows) {
-                    callback('success');
-                }
-                else {
+	static insert_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13,Copies,callback) {
+        let count = 0;
+        for(var i=0;i<Copies;i++)
+        {
+            db.getInstance().query(`INSERT INTO book(Title,Author,Format,Pages,Publisher,Language,ISBN10,ISBN13)
+            VALUES('${Title}','${Author}','${Format}',
+            '${Pages}','${Publisher}','${Language}','${ISBN10}','${ISBN13}')`, function (err, result) {
+                    if (result.affectedRows) {
+                       count++;
+                       if(count===Copies-1)
+                       callback('success');
+                    }
+                    else
                     callback('error');
-                }
-            });
+                });
+
+        }
+        
     }
 
-    static insert_Magazine(Title, Language, Publisher, ISBN10, ISBN13,callback) {
-        db.getInstance().query(`INSERT INTO magazine(Title,Language,Publisher,ISBN10,ISBN13)
-        VALUES('${Title}','${Language}','${Publisher}',
-        '${ISBN10}','${ISBN13}')`, function (err, result) {
+    static insert_Magazine(Title, Language, Publisher, ISBN10, ISBN13, Copies, callback) {
+        let count = 0;
+        for (var i = 0; i < Copies; i++) {
+            db.getInstance().query(`INSERT INTO magazine(Title,Language,Publisher,ISBN10,ISBN13)
+            VALUES('${Title}','${Language}','${Publisher}',
+            '${ISBN10}','${ISBN13}')`, function (err, result) {
+                    if (result.affectedRows) {
+                        count++;
+                        if (count === Copies - 1)
+                            callback('success');
+                    }
+                    else {
+                        callback('error');
+                    }
+                });
+        }
+
+    }
+	
+	static insert_Music(Type,Title,Artist,Label,Release_Date,ASIN,Copies,callback) {
+        let count=0;
+        for(var i=0;i<Copies;i++)
+        {
+        db.getInstance().query(`INSERT INTO music(Type,Title,Artist,Label,Release_Date,ASIN) VALUES
+        ('${Type}','${Title}','${Artist}','${Label}','${Release_Date}','${ASIN}')`, function (err, result) {
                 if (result.affectedRows) {
+                    count++;
+                    if(count===Copies-1)
                     callback('success');
                 }
                 else {
                     callback('error');
                 }
-            });
+            });}
     }
-	static insert_Movie(Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_Time,callback) {
-    
+	
+	 static insert_Movie(Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_Time,Copies,callback) {
+        let count=0;
+        for(var i=0;i<Copies;i++)
+        {
         db.getInstance().query(`INSERT INTO movie(Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_Time)
         VALUES('${Title}','${Director}','${Producers}',
         '${Actors}','${Language}','${Subtitles}','${Dubbed}','${Release_Date}','${Run_Time}'
         )`, function (err, result) {
                 if (result.affectedRows) {
+                    count++;
+                    if(count===Copies-1)
                     callback('success');
                 }
                 else {
                     callback('error');
                 }
             });
-    }
+    }}
 
     static show(entry,callback) {
 
@@ -142,19 +177,6 @@ class Gateway{
         });
     }
 
-
-	static insert_Music(Type,Title,Artist,Label,Release_Date,ASIN,callback) {
-
-        db.getInstance().query(`INSERT INTO music(Type,Title,Artist,Label,Release_Date,ASIN) VALUES
-        ('${Type}','${Title}','${Artist}','${Label}','${Release_Date}','${ASIN}')`, function (err, result) {
-                if (result.affectedRows) {
-                    callback('success');
-                }
-                else {
-                    callback('error');
-                }
-            });
-    }
 	
     static update_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, id, callback) {
         db.getInstance().query(`UPDATE book SET Title = '${Title}' , Author = '${Author}' , Format = '${Format}',
@@ -169,19 +191,18 @@ class Gateway{
             });
     }
 
-    static update_Magazine(Title, Language, Publisher, ISBN10, ISBN13,id,callback)
-    {
+    static update_Magazine(Title, Language, Publisher, ISBN10, ISBN13, id, callback) {
         db.getInstance().query(`UPDATE magazine SET Title = '${Title}' , Language = '${Language}' , 
         Publisher = '${Publisher}' , ISBN10 = '${ISBN10}' , ISBN13 = '${ISBN13}'
-        WHERE id = '${id}'`,function(err,result)
-        {
-            if(result.affectedRows)
-            {
-                callback('success');
-            }
-            else
-            callback('error');
-        });
+        WHERE id = '${id}'`, function (err, result) {
+                if (result.affectedRows) {
+                    callback('success');
+                }
+                else {
+                    callback('error');
+                }
+
+            });
     }
 	static update_Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time,id,callback)
     {
@@ -195,22 +216,27 @@ class Gateway{
                 callback('success');
             }
             else
-            callback('error');
-        })
+            {
+                callback('error');
+            }
+            });
+            
     }
 	
 	static update_Music(Type, Title, Artist, Label, Release_Date, ASIN,id,callback)
     {
         db.getInstance().query(`UPDATE music SET Title = '${Title}' , Type = '${Type}' , 
-        Artist = '${Artist}' , Release_Date = '${Release_Date}' , 
+        Artist = '${Artist}' , Release_Date = '${Release_Date}' , Label = '${Label}',
         ASIN = '${ASIN}' WHERE id = '${id}'`,function(err,result)
         {
             if(result.affectedRows)
             {
                 callback('success');
             }
-            else
-            callback('error');
+            else{
+                callback('error');
+            }
+            
         })
     }
 	
@@ -227,20 +253,19 @@ class Gateway{
             })
     }
 
-    static searchFilter_Magazine(query,filter,callback)
-    {
+    static searchFilter_Magazine(query, filter, callback) {
         console.log(filter);
         db.getInstance().query(`SELECT id,COUNT(id),Title,Language,Publisher,ISBN10,ISBN13 FROM magazine WHERE Title Like '%${query}%' or Language Like '${query}' or
         Publisher Like '%${query}%' or ISBN10 Like '${query}' or ISBN13 Like '${query}' 
         GROUP BY Title,Language,Publisher,ISBN10,ISBN13
-        ORDER BY ${filter}`,function(err,result){
-            if(result.length>0)
-            callback('success',result);
-            else
-            callback('error',null);
-        })
+        ORDER BY ${filter}`, function (err, result) {
+                if (result.length > 0)
+                    callback('success', result);
+                else
+                    callback('error', null);
+            })
     }
-	
+
 	static searchFilter_Music(query,filter,callback)
     {
         db.getInstance().query(`SELECT id,COUNT(id),Type,Title,Artist,Label,Release_Date,ASIN
@@ -268,7 +293,6 @@ class Gateway{
             callback('error',null);
         })
     }
-	
 }
 
 module.exports = Gateway;
