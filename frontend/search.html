@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+	<script src="js/main.js"></script>
+	<meta charset="utf-8">
+
+	<link href="css/styles.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<title>Library Catalogue</title>
+	<style>
+		body {font-family: Arial, Helvetica, sans-serif;}
+			
+			/* The Modal (background) */
+			.modal {
+				display: none; /* Hidden by default */
+				position: fixed; /* Stay in place */
+				z-index: 1; /* Sit on top */
+				padding-top: 100px; /* Location of the box */
+				left: 0;
+				top: 0;
+				width: 100%; /* Full width */
+				height: 100%; /* Full height */
+				overflow: auto; /* Enable scroll if needed */
+				background-color: rgb(0,0,0); /* Fallback color */
+				background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+			}
+			
+			/* Modal Content */
+			.modal-content {
+				background-color: #fefefe;
+				margin: auto;
+				padding: 20px;
+				border: 1px solid #888;
+				width: 80%;
+				position: relative;
+			}
+			
+			/* The Close Button */
+			.close {
+				color: #aaaaaa;
+				float: right;
+				font-size: 28px;
+				font-weight: bold;
+			}
+			
+			.close:hover,
+			.close:focus {
+				color: #000;
+				text-decoration: none;
+				cursor: pointer;
+			}
+
+			.next-btn {
+				background: rgba(189, 89, 212, 0.8);
+				padding: 10px;
+				border-radius: 5px;
+				position: absolute;
+				bottom: 10px;
+				right: 15px;
+			}
+
+			.previous-btn {
+				background: rgba(189, 89, 212, 0.8);
+				padding: 10px;
+				border-radius: 5px;
+				position: absolute;
+				bottom: 10px;
+				right: 100px;
+			}
+			</style>
+</head>
+
+<body>
+	<div id="wrapper">
+		<header>
+			<div id="page-banner">
+				<h1 class="title">Library Catalogue</h1>
+				<form id="search_item">
+					<input id="query-search" type="text" placeholder="Search books..." />
+
+					<select id="search-selector">
+						<option value="Book">Book</option>
+						<option value="Magazine">Magazine</option>
+						<option value="Music">Music</option>
+						<option value="Movie">Movie</option>
+					</select>
+
+					<select id="Book" class="sort Book">
+						<option value="Random">Random Order</option>
+						<option value="Title">Sort by Title</option>
+						<option value="Author">Sort by Author</option>
+						<option value="Publisher">Sort by Publisher</option>
+					</select>
+
+
+					<select id="Magazine" class="sort Magazine">
+						<option value="Random">Random Order</option>
+						<option value="Title">Sort by Title</option>
+						<option value="Publisher">Sort by Publisher</option>
+					</select>
+
+					<select id="Movie" class="sort Movie">
+						<option value="Random">Random Order</option>
+						<option value="Title">Sort by Title</option>
+						<option value="Director">Sort by Director</option>
+						<option value="Producers">Sort by Producers</option>
+						<option value="Actors">Sort by Actors</option>
+						<option value="Release_Date">Sort by Release Date</option>
+					</select>
+
+
+					<select id="Music" class="sort Music">
+						<option value="Random">Random Order</option>
+						<option value="Title">Sort by Title</option>
+						<option value="Artist">Sort by Artist</option>
+						<option value="Release_Date">Sort by Release Date</option>
+					</select>
+
+					<input type="button" id="submit-btn" onclick="search()" value="Search"><br>
+				</form>
+			</div>
+
+
+		</header>
+
+		<div id="book-list">
+			<ul>
+
+
+			</ul>
+		</div>
+	</div>
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<p id="content"></p>
+			<button class="next-btn" onclick="nextdetailedView()">Next</button>
+			<button class="previous-btn" onclick="previousdetailedView()">Previous</button>
+		</div>
+	</div>
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+	<script src="js/main.js"></script>
+	<script type="text/javascript">
+		var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)flagStudent\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+		var detailViewData;
+		var nextdetailViewData;
+		var index;
+		var previousdetailViewData;
+		var currentdetailViewData;
+		$(document).ready(function () {
+			if (cookieValue === "false") {
+				window.location.replace("studentlogin");
+				window.alert("Please Login First");
+			}
+			$('.sort').hide();
+			$('#Book').show();
+		});
+
+		$(function () {
+			$('#search-selector').click(function () {
+				$('.sort').hide();
+				$('#' + $(this).val()).show();
+			});
+		});
+
+		function search() {
+			const query = $('#query-search').val();
+			const entry = $('#search-selector').val();
+			const filter = $('#' + entry).val();
+			if (!query)
+				window.alert("Enter a Search String");
+			else {
+				$('#book-list').empty();
+				$.ajax({
+					type: "get",
+					url: `/api/search/${entry}/${query}/${filter}`,
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					success: function (data) {
+						detailViewData = data.id;
+						data.id.forEach(element => {
+							let row = "";
+							if (entry === 'Book') {
+								Object.keys(element).forEach(innerelement => {
+									if (innerelement === 'Title' || innerelement === 'Author' || innerelement === 'Publisher'
+										|| innerelement === 'Language' || innerelement === 'Pages') {
+										row = row + innerelement + "->" + element[innerelement] + "<br>";
+									}
+								});
+							}
+
+							if (entry === 'Magazine') {
+								Object.keys(element).forEach(innerelement => {
+									if (innerelement === 'Title' || innerelement === 'Publisher'
+										|| innerelement === 'Language') {
+										row = row + innerelement + "->" + element[innerelement] + "<br>";
+									}
+								});
+							}
+
+							if (entry === 'Music') {
+								Object.keys(element).forEach(innerelement => {
+									if (innerelement === 'Title' || innerelement === 'Artist' || innerelement === 'Label'
+										|| innerelement === 'Release_Date' || innerelement === 'Type') {
+										row = row + innerelement + "->" + element[innerelement] + "<br>";
+									}
+								});
+							}
+
+							if (entry === 'Movie') {
+								Object.keys(element).forEach(innerelement => {
+									if (innerelement === 'Title' || innerelement === 'Director' || innerelement === 'Producers'
+										|| innerelement === 'Actors' || innerelement === 'Language' || innerelement === 'Release_Date'
+										|| innerelement === 'Run_Time') {
+										row = row + innerelement + "->" + element[innerelement] + "<br>";
+									}
+								});
+							}
+							//element.id is the inner property id of database acting as a primary key
+							//setting the li id as the same id as in database
+
+							var row1 = `<li id=${element.id}>
+	    			<span class="name" >${row}</span>
+	    			<span class="delete" onclick = "detailedView('${entry}','${element.id}')">DetailedView</span>
+				    </li>`;
+							$('#book-list').append(row1);
+						});
+					},
+					error: function (error) {
+						console.log(error);
+						window.alert(error.responseJSON.error);
+					}
+				});
+			}
+		}
+
+		// Get the modal
+		var modal = document.getElementById('myModal');
+
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function () {
+			modal.style.display = "none";
+		}
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function (event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
+
+		function detailedView(val, id) {
+			modal.style.display = "block";
+			let detailData;
+			detailViewData.forEach(element => {
+				if (element.id == id) {
+					index = detailViewData.indexOf(element);
+					currentdetailViewData = detailViewData[index];
+					// nextdetailViewData = detailViewData[index + 1];
+					// previousdetailViewData = detailViewData[index-1];
+					console.log(nextdetailViewData);
+					let row = "";
+					Object.keys(element).forEach(innerelement => {
+						if (innerelement == "COUNT(id)") {
+							row = row + "Number of Copies Availabe" + "->" + element[innerelement] + "<br>";
+						}
+						else if (innerelement !== 'id') {
+							row = row + innerelement + "->" + element[innerelement] + "<br>";
+						}
+					});
+					detailData = row;
+				}
+			});
+			$('#content').empty().append(detailData);
+		}
+
+		function nextdetailedView() {
+			let index_next = detailViewData.indexOf(currentdetailViewData);
+			nextdetailViewData = detailViewData[index_next + 1];
+			console.log(nextdetailViewData);
+			console.log(index_next);
+			if (!nextdetailViewData) {
+				$('.next-btn').disabled = true;
+			}
+			else {
+				$('.next-btn').disabled = false;
+				modal.style.display = "block";
+				let detailData;
+				let row = "";
+				Object.keys(nextdetailViewData).forEach(innerelement => {
+					if (innerelement == "COUNT(id)") {
+						row = row + "Number of Copies Availabe" + "->" + nextdetailViewData[innerelement] + "<br>";
+					}
+					else if (innerelement !== 'id') {
+						row = row + innerelement + "->" + nextdetailViewData[innerelement] + "<br>";
+					}
+				});
+				detailData = row;
+				currentdetailViewData = nextdetailViewData;
+				$('#content').empty().append(detailData);
+			}
+		}
+
+
+		function previousdetailedView() {
+			let index_prev = detailViewData.indexOf(currentdetailViewData);
+			previousdetailViewData = detailViewData[index_prev - 1];
+			if (!previousdetailViewData) {
+				$('.previous-btn').disabled = true;
+			}
+			else {
+				$('.previous-btn').disabled = false;
+				modal.style.display = "block";
+				let detailData;
+				let row = "";
+				Object.keys(previousdetailViewData).forEach(innerelement => {
+					if (innerelement == "COUNT(id)") {
+						row = row + "Number of Copies Availabe" + "->" + previousdetailViewData[innerelement] + "<br>";
+					}
+					else if (innerelement !== 'id') {
+						row = row + innerelement + "->" + previousdetailViewData[innerelement] + "<br>";
+					}
+				});
+				detailData = row;
+                currentdetailViewData = previousdetailViewData;
+				$('#content').empty().append(detailData);
+			}
+		}
+	</script>
+</body>
+
+</html>
