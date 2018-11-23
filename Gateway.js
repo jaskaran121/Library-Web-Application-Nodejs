@@ -254,6 +254,20 @@ class Gateway{
             callback('error',null);
         })
     }
+	static searchFilter_Movie(query,filter,callback)
+    {
+        db.getInstance().query(`SELECT id,COUNT(id),Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_Time
+         FROM movie WHERE Title Like '%${query}%' or Director Like '%${query}%' or Producers Like '%${query}%'
+        or Actors Like '%${query}%' or Language Like '${query}' or Dubbed Like '${query}' or Subtitles Like '${query}'
+        or Release_Date Like '%${query}%' or Run_Time Like '%${query}%' 
+        GROUP BY Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_Time
+        ORDER BY ${filter}`,function(err,result){
+            if(result.length>0)
+            callback('success',result);
+            else
+            callback('error',null);
+        })
+    }
 	
 }
 
