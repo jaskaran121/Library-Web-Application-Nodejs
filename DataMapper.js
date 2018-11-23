@@ -3,7 +3,6 @@ const gateway = require('./Gateway');
 
 class DataMapper {
 
-
     static viewActiveUsers(callback) {
         gateway.viewUsers(function (type, result) {
             if (type === 'success') {
@@ -68,6 +67,7 @@ class DataMapper {
             else
                 callback('error1');
         })
+    }    
     
 	static create_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, callback) {
         const book = new models.Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, null);
@@ -91,7 +91,6 @@ class DataMapper {
             })
     }
 
-
  
     static delete(entry, id, callback) {
         gateway.delete(entry, id, function (type) {
@@ -102,8 +101,6 @@ class DataMapper {
                 callback('error');
         });
     }
-
-
 
     static update_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, id, callback) {
         const book = new models.Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, id);
