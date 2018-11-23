@@ -1,6 +1,21 @@
 const db = require('./db-connector');
 
 class Gateway{
+
+static viewUsers(callback) {
+        
+        db.getInstance().query(`SELECT * FROM person WHERE Discriminator = 'S'`
+        , function (err, result) {
+           if (result.length > 0) {
+                callback('success', result);
+            }
+            else {
+                console.log(error);
+                callback('error', null);
+            }
+        })
+    }
+
 	static insert_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13,callback) {
         db.getInstance().query(`INSERT INTO book(Title,Author,Format,Pages,Publisher,Language,ISBN10,ISBN13)
         VALUES('${Title}','${Author}','${Format}',
@@ -13,7 +28,19 @@ class Gateway{
                 }
             });
     }
-	
+
+ static delete(entry,id, callback) {
+        db.getInstance().query(`DELETE FROM ${entry} WHERE id = ${id}`, function (err, result) {
+            console.log(err);
+            if (result.affectedRows) {
+                callback('success');
+            }
+            else
+                callback('error');
+        });
+    }
+
+
 	static insert_Music(Type,Title,Artist,Label,Release_Date,ASIN,callback) {
 
         db.getInstance().query(`INSERT INTO music(Type,Title,Artist,Label,Release_Date,ASIN) VALUES
