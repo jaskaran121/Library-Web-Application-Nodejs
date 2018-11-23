@@ -207,6 +207,14 @@ class DataMapper {
                 callback('error',null);
         })
     }
+	 static searchFilter_Movie(query,filter,callback){
+        gateway.searchFilter_Movie(query, filter, function (type, result) {
+            if (type === 'success')
+                callback('success',result);
+            else
+                callback('error',null);
+        })
+    }
 }
 
 module.exports = DataMapper;
