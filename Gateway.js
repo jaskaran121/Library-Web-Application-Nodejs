@@ -179,19 +179,18 @@ class Gateway{
             });
     }
 
-    static update_Magazine(Title, Language, Publisher, ISBN10, ISBN13,id,callback)
-    {
+    static update_Magazine(Title, Language, Publisher, ISBN10, ISBN13, id, callback) {
         db.getInstance().query(`UPDATE magazine SET Title = '${Title}' , Language = '${Language}' , 
         Publisher = '${Publisher}' , ISBN10 = '${ISBN10}' , ISBN13 = '${ISBN13}'
-        WHERE id = '${id}'`,function(err,result)
-        {
-            if(result.affectedRows)
-            {
-                callback('success');
-            }
-            else
-            callback('error');
-        });
+        WHERE id = '${id}'`, function (err, result) {
+                if (result.affectedRows) {
+                    callback('success');
+                }
+                else {
+                    callback('error');
+                }
+
+            });
     }
 	static update_Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time,id,callback)
     {
