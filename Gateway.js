@@ -239,20 +239,19 @@ class Gateway{
             })
     }
 
-    static searchFilter_Magazine(query,filter,callback)
-    {
+    static searchFilter_Magazine(query, filter, callback) {
         console.log(filter);
         db.getInstance().query(`SELECT id,COUNT(id),Title,Language,Publisher,ISBN10,ISBN13 FROM magazine WHERE Title Like '%${query}%' or Language Like '${query}' or
         Publisher Like '%${query}%' or ISBN10 Like '${query}' or ISBN13 Like '${query}' 
         GROUP BY Title,Language,Publisher,ISBN10,ISBN13
-        ORDER BY ${filter}`,function(err,result){
-            if(result.length>0)
-            callback('success',result);
-            else
-            callback('error',null);
-        })
+        ORDER BY ${filter}`, function (err, result) {
+                if (result.length > 0)
+                    callback('success', result);
+                else
+                    callback('error', null);
+            })
     }
-	
+
 	static searchFilter_Music(query,filter,callback)
     {
         db.getInstance().query(`SELECT id,COUNT(id),Type,Title,Artist,Label,Release_Date,ASIN
