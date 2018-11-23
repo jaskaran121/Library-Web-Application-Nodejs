@@ -105,20 +105,24 @@ class Gateway{
                 }
             });
     }
-	static insert_Movie(Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_Time,callback) {
-    
+	 static insert_Movie(Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_Time,Copies,callback) {
+        let count=0;
+        for(var i=0;i<Copies;i++)
+        {
         db.getInstance().query(`INSERT INTO movie(Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_Time)
         VALUES('${Title}','${Director}','${Producers}',
         '${Actors}','${Language}','${Subtitles}','${Dubbed}','${Release_Date}','${Run_Time}'
         )`, function (err, result) {
                 if (result.affectedRows) {
+                    count++;
+                    if(count===Copies-1)
                     callback('success');
                 }
                 else {
                     callback('error');
                 }
             });
-    }
+    }}
 
     static show(entry,callback) {
 
@@ -195,8 +199,11 @@ class Gateway{
                 callback('success');
             }
             else
-            callback('error');
-        })
+            {
+                callback('error');
+            }
+            });
+            
     }
 	
 	static update_Music(Type, Title, Artist, Label, Release_Date, ASIN,id,callback)
@@ -268,7 +275,6 @@ class Gateway{
             callback('error',null);
         })
     }
-	
 }
 
 module.exports = Gateway;
