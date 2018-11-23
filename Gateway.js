@@ -80,24 +80,17 @@ class Gateway{
         });
     }
 
-	static insert_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13,Copies,callback) {
-        let count = 0;
-        for(var i=0;i<Copies;i++)
-        {
-            db.getInstance().query(`INSERT INTO book(Title,Author,Format,Pages,Publisher,Language,ISBN10,ISBN13)
-            VALUES('${Title}','${Author}','${Format}',
-            '${Pages}','${Publisher}','${Language}','${ISBN10}','${ISBN13}')`, function (err, result) {
-                    if (result.affectedRows) {
-                       count++;
-                       if(count===Copies-1)
-                       callback('success');
-                    }
-                    else
+	static insert_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13,callback) {
+        db.getInstance().query(`INSERT INTO book(Title,Author,Format,Pages,Publisher,Language,ISBN10,ISBN13)
+        VALUES('${Title}','${Author}','${Format}',
+        '${Pages}','${Publisher}','${Language}','${ISBN10}','${ISBN13}')`, function (err, result) {
+                if (result.affectedRows) {
+                    callback('success');
+                }
+                else {
                     callback('error');
-                });
-
-        }
-        
+                }
+            });
     }
 
     static insert_Magazine(Title, Language, Publisher, ISBN10, ISBN13, Copies, callback) {
