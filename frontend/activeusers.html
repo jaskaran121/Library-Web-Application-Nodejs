@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <body>
     <head>
             <style type="text/css">
@@ -96,3 +97,122 @@
         });
     });
     </script>
+=======
+<body>
+
+    <head>
+        <style type="text/css">
+            form {
+                margin: 20px 0;
+            }
+
+            form input,
+            button {
+                padding: 5px;
+            }
+
+            table {
+                width: 100%;
+                margin-bottom: 20px;
+                border-collapse: collapse;
+            }
+
+            table,
+            th,
+            td {
+                border: 1px solid #cdcdcd;
+            }
+
+            table th,
+            table td {
+                padding: 10px;
+                text-align: left;
+            }
+        </style>
+    </head>
+    <div id="tableDiv" style="margin-top: 40px">
+        Table will genrate here.
+    </div>
+
+    </div>
+</body>
+
+</html>
+
+
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/daterangepicker/moment.min.js"></script>
+<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+<script src="js/main.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)flagAdmin\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        console.log(cookieValue);
+        if (cookieValue === "false") {
+            window.location.replace("adminlogin");
+            window.alert("Please Login First");
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                url: "/api/view/students",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var i = 0;
+                    var table_body = '<table border="2">';
+                    data.id.forEach(element => {
+                        table_body += '<tr>';
+                        console.log(element);
+                        Object.keys(element).forEach(innerelement => {
+                            if (i == 0) {
+                                if (innerelement !== 'Discriminator' && innerelement !== 'Password') {
+                                    console.log(innerelement);
+                                    table_body += '<td>';
+                                    table_body += innerelement;
+                                    table_body += '</td>';
+                                }
+                            }
+                            else
+                                return false;
+                        });
+                        i++;
+                        table_body += '</tr>';
+                    });
+
+                    $('#tableDiv').html(table_body);
+                    data.id.forEach(element => {
+                        table_body += '<tr>';
+                        Object.keys(element).forEach(innerelement => {
+                            if (innerelement !== 'Discriminator' && innerelement !== 'Password') {
+                                table_body += '<td>';
+                                table_body += element[innerelement];
+                                table_body += '</td>';
+                            }
+                        });
+                        table_body += '</tr>';
+                    });
+                    table_body += '</table>';
+                    $('#tableDiv').html(table_body);
+                },
+                error: function (error) {
+                    console.log(error);
+                    window.alert(error.responseJSON.error);
+                }
+            });
+        }
+    });
+</script>
+>>>>>>> 0225a18fb1f2dfdbc3b0e2f96cbb44807a818744
