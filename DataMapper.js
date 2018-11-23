@@ -162,10 +162,14 @@ class DataMapper {
 
         gateway.update_Movie(movie.getTitle(), movie.getDirector(), movie.getProducers(), movie.getActors(), movie.getLanguage(),
             movie.getSubtitles(), movie.getDubbed(), movie.getRelease_Date(), movie.getRun_Time(), movie.getID(), function (type) {
-                if (callback === 'success')
-                    callback('success');
+                if (type === 'success')    
+                {
+                    callback('success');}
                 else
+                {
                     callback('error');
+                }
+                    
             })
     }
 	
@@ -207,7 +211,7 @@ class DataMapper {
                 callback('error',null);
         })
     }
-	 static searchFilter_Movie(query,filter,callback){
+	static searchFilter_Movie(query,filter,callback){
         gateway.searchFilter_Movie(query, filter, function (type, result) {
             if (type === 'success')
                 callback('success',result);
