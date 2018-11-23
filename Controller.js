@@ -54,6 +54,16 @@ app.get('/modify',(req,res) =>{
     res.sendFile(__dirname + '/frontend/modify.html');
 })
 
+// Viewing active users
+app.post('/api/view/students', (req, res) => {
+    mapper.viewActiveUsers(function (type, result) {
+        if (type === 'success')
+            res.status(200).json({ "success": 'SOEN 341', "id": result });
+        else
+            res.status(500).json({ "error": 'Not able to fetch values' });
+    })
+});
+
 //create book entry
 app.post('/api/create/book', (req, res) => {
 
@@ -66,6 +76,18 @@ app.post('/api/create/book', (req, res) => {
                 res.status(400).json({ "error": 'Error not able to insert value in to database' });
             }
         });
+});
+
+//Delete entry item
+app.get('/api/delete/:entry/:id', (req, res) => {
+    var entry = req.params.entry;
+    var id = req.params.id;
+    mapper.delete(entry, id, function (type) {
+        if (type === 'success')
+            res.status(200).json({ "success": 'SOEN 341' });
+        else
+            res.status(500).json({ "error": 'Not able to fetch values' });
+    });
 });
 
 //Update entry
