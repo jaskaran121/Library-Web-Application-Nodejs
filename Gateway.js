@@ -183,6 +183,21 @@ class Gateway{
             callback('error');
         });
     }
+	static update_Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time,id,callback)
+    {
+        db.getInstance().query(`UPDATE movie SET Title = '${Title}' , Language = '${Language}' , 
+        Director = '${Director}' , Producers = '${Producers}' , Actors = '${Actors}' ,
+        Subtitles = '${Subtitles}' , Dubbed ='${Dubbed}' , Release_Date = '${Release_Date}' , 
+        Run_Time = '${Run_Time}' WHERE id = '${id}'`,function(err,result)
+        {
+            if(result.affectedRows)
+            {
+                callback('success');
+            }
+            else
+            callback('error');
+        })
+    }
 	
 	static update_Music(Type, Title, Artist, Label, Release_Date, ASIN,id,callback)
     {
