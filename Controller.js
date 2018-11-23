@@ -106,6 +106,19 @@ app.post('/api/create/book', (req, res) => {
         });
 });
 
+//create music entry
+app.post('/api/create/music', (req, res) => {
+    mapper.create_Music(req.body.Type, req.body.Title, req.body.Artist, req.body.Label,
+        req.body.ReleaseDate, req.body.ASIN, function (type) {
+            if (type === 'success') {
+                res.status(200).json({ "success": 'SOEN 341' });
+            }
+            else {
+                res.status(400).json({ "error": 'Error not able to insert value in to database' });
+            }
+        })
+});
+
 //Delete entry item
 app.get('/api/delete/:entry/:id', (req, res) => {
     var entry = req.params.entry;
@@ -129,7 +142,20 @@ app.post('/api/update/:entry/:id', (req, res) => {
                 else
                     res.status(500).json({ "error": 'Not able to update values' });
             })
-    }}
+    }
+	
+	if (req.params.entry === 'Music') {
+        mapper.update_Music(req.body.Type, req.body.Title, req.body.Artist, req.body.Label,
+            req.body.ReleaseDate, req.body.ASIN, req.params.id, function (type) {
+                if (type === 'success')
+                    res.status(200).json({ "success": 'SOEN 341' });
+                else
+                    res.status(500).json({ "error": 'Not able to update values' });
+            })
+
+    }
+	
+});
 
 //Search      
 app.get('/api/search/:entry/:query/:filter', (req, res) => {
@@ -157,5 +183,32 @@ app.get('/api/search/:entry/:query/:filter', (req, res) => {
                     res.status(400).json({ "error": 'No results found' });
             });
         }
-    }}
+    }
+	
+	if (entry === "Music") {
+
+        if (filter === "Random") {
+            mapper.searchFilter_Music(query, null, function (type, result) {
+                if (type === 'success')
+                    res.status(200).json({
+                        "success": "soen 341", "id": result
+                    });
+                else
+                    res.status(400).json({ "error": 'No results found' });
+            });
+        }
+        else {
+            mapper.searchFilter_Music(query, filter, function (type, result) {
+                if (type === 'success')
+                    res.status(200).json({
+                        "success": "soen 341", "id": result
+                    });
+                else
+                    res.status(400).json({ "error": 'No results found' });
+            });
+        }
+
+    }
+	
+});
 app.listen(3000, () => console.log("Listening on 3000 port...."));
