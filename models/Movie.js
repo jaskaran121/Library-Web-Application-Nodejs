@@ -1,15 +1,14 @@
-const db = require('../db-connector');
+const MediaItem = require('./MediaItem');
 
-class Movie{
-    constructor(Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_Time){
-        this.Title = Title;
+class Movie extends MediaItem{
+    constructor(Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_Time,id){
+        super(Title,Release_Date,id);
         this.Director = Director;
         this.Producers =Producers;
         this.Actors=Actors;
         this.Language=Language;
         this.Subtitles=Subtitles;
         this.Dubbed=Dubbed;
-        this.Release_Date=Release_Date;
         this.Run_Time = Run_Time;
     }
     
