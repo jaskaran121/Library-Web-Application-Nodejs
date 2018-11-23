@@ -132,6 +132,20 @@ app.post('/api/create/book', (req, res) => {
         });
 });
 
+//create magazine entry
+app.post('/api/create/magazine', (req, res) => {
+
+    mapper.create_Magazine(req.body.Title, req.body.Language, req.body.Publisher,
+        req.body.ISBN10, req.body.ISBN13, function (type) {
+            if (type === 'success') {
+                res.status(200).json({ "success": 'SOEN 341' });
+            }
+            else {
+                res.status(400).json({ "error": 'Error not able to insert value in to database' });
+            }
+        });
+});
+
 //create music entry
 app.post('/api/create/music', (req, res) => {
     mapper.create_Music(req.body.Type, req.body.Title, req.body.Artist, req.body.Label,
@@ -168,6 +182,17 @@ app.post('/api/update/:entry/:id', (req, res) => {
                 else
                     res.status(500).json({ "error": 'Not able to update values' });
             })
+    }
+
+    if (req.params.entry === 'Magazine') {
+        mapper.update_Magazine(req.body.Title, req.body.Language, req.body.Publisher, req.body.ISBN10, req.body.ISBN13,
+            req.params.id, function (type) {
+                if (type === 'success')
+                    res.status(200).json({ "success": 'SOEN 341' });
+                else
+                    res.status(500).json({ "error": 'Not able to update values' });
+            })
+
     }
 	
 	if (req.params.entry === 'Music') {
@@ -209,6 +234,31 @@ app.get('/api/search/:entry/:query/:filter', (req, res) => {
                     res.status(400).json({ "error": 'No results found' });
             });
         }
+    }
+
+    if (entry === "Magazine") {
+
+        if (filter === "Random") {
+            mapper.searchFilter_Magazine(query, null, function (type, result) {
+                if (type === 'success')
+                    res.status(200).json({
+                        "success": "soen 341", "id": result
+                    });
+                else
+                    res.status(400).json({ "error": 'No results found' });
+            });
+        }
+        else {
+            mapper.searchFilter_Magazine(query, filter, function (type, result) {
+                if (type === 'success')
+                    res.status(200).json({
+                        "success": "soen 341", "id": result
+                    });
+                else
+                    res.status(400).json({ "error": 'No results found' });
+            });
+        }
+
     }
 	
 	if (entry === "Music") {
