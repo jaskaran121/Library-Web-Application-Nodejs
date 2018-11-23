@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+		<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+		<!--===============================================================================================-->
+		<script src="vendor/animsition/js/animsition.min.js"></script>
+		<!--===============================================================================================-->
+		<script src="vendor/bootstrap/js/popper.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		<!--===============================================================================================-->
+		<script src="vendor/select2/select2.min.js"></script>
+		<!--===============================================================================================-->
+		<script src="vendor/daterangepicker/moment.min.js"></script>
+		<script src="vendor/daterangepicker/daterangepicker.js"></script>
+		<!--===============================================================================================-->
+		<script src="vendor/countdowntime/countdowntime.js"></script>
+		<script src="js/main.js"></script>
+	<meta charset="utf-8">
+	
+		<link href="css/styles.css" rel="stylesheet"/>
+		<link rel="stylesheet" type="text/css" href="css/util.css">
+	  <link rel="stylesheet" type="text/css" href="css/main.css">
+    <title>Library Catalogue</title>
+  </head>
+  <body>
+  	<div id = "wrapper"><header>
+	    <div id = "page-banner">
+				<h1 class="title">Library Catalogue</h1>
+	    		<form id="search-item">
+					<input id = "query-search" type="text" placeholder="Search books..." />
+					
+                    <select id="search-selector">
+                            <option value="Book">Book</option>
+                            <option value="Magazine">Magazine</option>
+                            <option value="Music">Music</option>
+                            <option value="Movie">Movie</option>
+					</select>
+					
+                    <input type="button" id ="submit-btn" onclick="search()" value = "Search"><br>
+                </form> 
+	</div>
+</header>	
+
+	    <div id="book-list">
+	    	<ul>
+
+
+	    	</ul>
+	    </div>
+</div>
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/daterangepicker/moment.min.js"></script>
+<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/countdowntime/countdowntime.js"></script>
+<script src="js/main.js"></script>
+<script type="text/javascript">
+		var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)flag\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+		//console.log(cookieValue);
+		$(document).ready(function(){
+		 if(cookieValue==="false")
+		 {
+		window.location.replace("studentlogin");
+		window.alert("Please Login First");
+		 }
+		 $('.Entry').hide();
+	});
+
+function search()
+{
+	const query = $('#query-search').val();
+	if(!query)
+	window.alert("Enter a Search String");
+	else{
+	  const entry = $('#search-selector').val();
+	  console.log(entry);
+	  $('#book-list').empty();
+	  $.ajax({
+		type: "get",
+		url: `/api/search/${entry}/${query}`,
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		success :function(data)
+		{
+			data.id.forEach(element =>{
+				let row="";
+				Object.keys(element).forEach(innerelement =>{
+					if(innerelement!="id")
+					{
+						row = row + innerelement + "->" + element[innerelement] +"<br>";
+					}
+				})
+				//element.id is the inner property id of database acting as a primary key
+				var row1 = `<li id=${element.id}>
+	    			<span class="name" >${row}</span>
+	    			<span class="delete">delete</span>
+				</li>`;
+				$('#book-list').append(row1);
+			});
+		},
+		error: function (error) {	
+		console.log(error);		
+		window.alert(error.responseJSON.error);
+		} 
+	  });
+	}
+}
+</script>
+  </body>
+</html>

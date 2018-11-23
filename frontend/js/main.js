@@ -45,12 +45,7 @@
                 success: function (data) {
 
                     document.cookie = "flag=true";
-
-                    console.log(document.cookie);
-
                     window.location.replace("adminhome");
-
-                   // console.log(document.cookie);
                 },
                 error: function (error) {
                     console.log(error);
@@ -167,8 +162,8 @@
                     "Password": $("#password").val()
                 }),
                 success: function (data) {
-                    console.log(data.id);
-                    window.alert("Login-Successfull");
+                    document.cookie = "flag=true";
+                    window.location.replace("studenthome.html");
                    // document.write(JSON.stringify(data.id));
                 },
                 error: function (error) {
@@ -218,26 +213,7 @@
     });
 
 
-    //View active users
-    $('#admin-home').on("click", function ($event) {
-         $event.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: "/api/view/students",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
-                console.log(JSON.stringify(data.id));
-                document.write(JSON.stringify(data.id));
-            },
-            error: function (error) {
-                console.log(error);
-                window.alert(error.responseJSON.error);
-            }
-        });
-    });
-
-    var input = $('#validate-input .input100');
+ var input = $('#validate-input .input100');
 //console.log(input);
     $('#create-new-entry-book').on("click", function ($event) {
         $event.preventDefault();
@@ -363,18 +339,15 @@
 
     //Entry for music
     var input = $('#validate-input-Music .input100');
-//console.log(input);
     $('#create-new-entry-Music').on("click", function ($event) {
         $event.preventDefault();
         var check = true;
-//console.log("New book created");
         for (var i = 0; i < input.length; i++) {
             if (validate(input[i]) == false) {
                 showValidate(input[i]);
                 check = false;
             }
         }
-
         if (check == true) {
             $.ajax({
             type: "POST",

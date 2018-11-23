@@ -34,9 +34,13 @@ app.get('/createnewentry', (req, res) => {
     res.sendFile(__dirname + '/frontend/createnewentry.html');
 })
 
+//For query in the url
+app.get('/api', (req , res) => {
+    res.send(req.query);
+});
 
 //Rest Api for loggin in admininstrator
-
+//Seif
 app.post('/api/login', (req, res) => {
     models.Admin.login(req.body.user,req.body.password,function(type){
         if(type==='success')
@@ -49,7 +53,7 @@ app.post('/api/login', (req, res) => {
 });
 
 //Rest Api for sign-up of admininstrator
-
+//Seif
 app.post('/api/signup/admin', (req, res) => {
     const admin = new models.Admin(req.body.FirstName,req.body.LastName,req.body.user,req.body.password,req.body.Email,req.body.PhoneNumber);
     admin.insert(function(type) {
@@ -61,8 +65,8 @@ app.post('/api/signup/admin', (req, res) => {
     });
 });
 
-
 //Rest Api for sign-up of student
+//AKhil
 app.post('/api/signup/student', (req, res) => {
     const student = new models.Student(req.body.FirstName,req.body.LastName,req.body.UserName,req.body.Password,
         req.body.Email,req.body.PhoneNumber);
@@ -75,6 +79,7 @@ app.post('/api/signup/student', (req, res) => {
 });
 
 //Rest Api for logging in of student
+//Akhil
 app.post('/api/student/login', (req, res) => {
     models.Student.login(req.body.UserName,req.body.Password,function(type){
         if(type==='success')
@@ -87,19 +92,18 @@ app.post('/api/student/login', (req, res) => {
 });
 
 // Viewing active users
+//Seif
 app.post('/api/view/students', (req, res) => {
-    con.query(`SELECT * FROM students`, function (err, result) {
-        if (result.length > 0) {
-
-            res.status(200).json({ "success": 'SOEN 341', "id": result });
-
-        } else {
+    models.Admin.viewUsers(function(type,result){
+        if(type==='success')
+        res.status(200).json({ "success": 'SOEN 341', "id": result });
+        else 
             res.status(500).json({ "error": 'Not able to fetch values' });
-        }
     });
 });
 
 //create book entry
+//Jaskaran
 app.post('/api/create/book', (req, res) => {
     const book = new models.Book(req.body.Title,req.body.Author,req.body.Format,req.body.Pages,req.body.Publisher,req.body.Language,req.body.ISBN10,req.body.ISBN13);
     book.insert(function(type) {
@@ -110,7 +114,9 @@ app.post('/api/create/book', (req, res) => {
         }
     });
 });
+
 //create magazine entry
+//Himalaya
 app.post('/api/create/magazine', (req, res) => {
     const magazine = new models.Magazine(req.body.Title,req.body.Language,req.body.Publisher,req.body.ISBN10,req.body.ISBN13);  
     magazine.insert(function(type){
@@ -123,25 +129,22 @@ app.post('/api/create/magazine', (req, res) => {
     }
 });     
 });
-
 //create music entry
+//Hasan
 app.post('/api/create/music', (req, res) => {
-    con.query(`INSERT INTO music(Type,Title,Artist,Label,Release_Date,ASIN) 
-    VALUES('${req.body.Type}','${req.body.Title}','${req.body.Artist}','${req.body.Label}','${req.body.ReleaseDate}',
-    '${req.body.ASIN}')`, function (err, result) {
+    const music = new models.Music(req.body.Type,req.body.Title,req.body.Artist,req.body.Label,req.body.ReleaseDate,req.body.ASIN);
+    music.insert(function(type){
+        if (type==='success') {
 
-            console.log("Number of records inserted: " + result.affectedRows);
-            if (result.affectedRows) {
-                
-                res.status(200).json({ "success": 'SOEN 341'});
-            }
-            else {
-                res.status(400).json({ "error": 'Error not able to insert value in to database' });
-            }
-        });
+            res.status(200).json({ "success": 'SOEN 341'});
+        }
+        else {
+            res.status(400).json({ "error": 'Error not able to insert value in to database' });
+        }
+    });
 });
-
 //Create movie entry
+//Claudia
 app.post('/api/create/movie', (req, res) => {
     const movie = new models.Movie(req.body.Title,req.body.Director,req.body.Producers,req.body.Actors,req.body.Language,
         req.body.Subtitles,req.body.Dubbed,req.body.Release_Date,req.body.Run_Time);
@@ -154,41 +157,37 @@ app.post('/api/create/movie', (req, res) => {
                 res.status(400).json({ "error": 'Error not able to insert value in to database'});
             }
         });  
-});
+        });
 
 //Delete entry
-app.post('/api/delete/:entry/:id',(req,res)=>{
-con.query(`DELETE FROM ${req.params.entry} WHERE id = ${req.params.id}`,
-function(err,result) {
-    console.log(err);
-console.log("Number of rows Deleted: " + result.affectedRows);
-if(result.affectedRows){
-    res.status(200).json({"success": 'SOEN 341'});
-}
-else{
-    res.status(400).json({"error":'Entry not present in the database'});
-}
+//Jaskaran
+app.get('/api/delete/:entry/:id',(req,res)=>{
+    var entry = req.params.entry;
+    var id = req.params.id;
+        models.Book.delete(entry,id,function(type){
+        if(type==='success')
+            res.status(200).json({ "success": 'SOEN 341'});
+        else
+            res.status(500).json({ "error": 'Not able to fetch values' });
 });
 });
+
 
 //Show data
-app.post('/api/show/:entry',(req,res)=>{
-    var x = req.query.entry;
-   con.query(`SELECT * FROM ${x}`,function(err,result){
-       console.log(err);
-       if (result.length > 0) {
-
-        res.status(200).json({ "success": 'SOEN 341', "id": result });
-
-    } else {
-        res.status(500).json({ "error": 'Not able to fetch values' });
-    }
-     }); 
+//Jaskaran
+app.get('/api/show/:entry',(req,res)=>{
+    var entry = req.params.entry;
+    //models.setentry(entry);
+    models.Book.show(entry,function(type,result){
+    if(type==='success')
+            res.status(200).json({ "success": 'SOEN 341',"id": result});
+        else
+            res.status(500).json({ "error": 'Not able to fetch values' });
 });
-
-app.listen(3000, () => console.log("Listening on 3000 port...."));
+});  
 
 //Search data
+//Akhil
 app.get('/api/search/:entry/:query',(req,res)=>{
 const entry = req.params.entry;
 const query = req.params.query;

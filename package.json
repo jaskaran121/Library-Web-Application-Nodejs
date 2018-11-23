@@ -1,7 +1,6 @@
 {
-  "name": "Soen-341",
+  "name": "soen-341",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,8 +10,19 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.3",
+    "express": "^4.16.0",
+    "http-server": "^0.11.1",
     "js-cookie": "^2.2.0",
     "mysql": "^2.16.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jaskaran121/Soen341.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Jaskaran121/Soen341/issues"
+  },
+  "homepage": "https://github.com/Jaskaran121/Soen341#readme",
+  "description": ""
 }

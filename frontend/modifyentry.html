@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+		<link href="css/styles.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/util.css">
+	  <link rel="stylesheet" type="text/css" href="css/main.css">
+    <title>Library Catalogue</title>
+  </head>
+  <body>
+  	<div id="wrapper">
+	    <header>
+	    	<div id="page-banner">
+					<h1 class="title">Library Catalogue</h1>
+	    		<select id="entryselector-delete">
+						<option value="book">Book</option>
+						<option value="magazine">Magazine</option>
+						<option value="music">Music</option>
+						<option value="movie">Movie</option>
+					 </select>
+          
+	    	</div>
+	    </header>
+	    <div id="book-list">
+	    	<ul id="get-book">
+	    		
+	    	</ul>
+	    </div>
+</div>
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/daterangepicker/moment.min.js"></script>
+<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/countdowntime/countdowntime.js"></script>
+<script src="js/main.js"></script>
+
+		<script type="text/javascript">
+		var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)flag\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+		//console.log(cookieValue);
+		$(document).ready(function(){
+		 if(cookieValue==="false")
+		 {
+		window.location.replace("adminlogin");
+		window.alert("Please Login First");
+		 }
+		 $('.Entry').hide();
+	});
+	
+	function myFunction(val,id)
+	{
+		 
+		 $.ajax({
+            type: "get",
+            url: `/api/delete/${val}/${id}`,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+				$("#" + id).remove();
+				window.alert("Entry Deleted Successfully");
+            },
+            error: function (error) {
+                console.log(error);
+                window.alert(error.responseJSON.error);
+            }
+        });
+	}
+	
+	var a = $(function() {
+		$('#entryselector-delete').click(function($event){
+			$event.preventDefault();
+			let entryname = $(this).val();
+			$('#book-list').empty();
+		
+		$.ajax({
+        type: "get",
+	    url: `/api/show/${$(this).val()}`,
+		contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+		success: function (data) {
+				
+		data.id.forEach(element => {
+			let row = "";
+		    Object.keys(element).forEach(innerelement =>{
+				if(innerelement!="id")
+				row = row + innerelement + "->" + element[innerelement] +"<br>";
+			});
+			var row1 = `<li id=${element.id}>
+	    			<span class="name" >${row}</span>
+	    			<span class="delete" onclick="myFunction('${entryname}',${element.id})">delete</span>
+				</li>`;
+				$('#book-list').append(row1);
+		});
+		
+		},
+		error: function (error) {
+		console.log(error);		
+		} 
+		});
+	});});
+
+
+
+	</script>
+  </body>
+</html>
