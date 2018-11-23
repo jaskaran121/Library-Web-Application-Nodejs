@@ -80,10 +80,10 @@ class DataMapper {
             })
     }
 
-    static create_Magazine(Title, Language, Publisher, ISBN10, ISBN13, callback) {
+    static create_Magazine(Title, Language, Publisher, ISBN10, ISBN13, Copies, callback) {
         const magazine = new models.Magazine(Title, Language, Publisher, ISBN10, ISBN13, null);
         gateway.insert_Magazine(magazine.getTitle(), magazine.getLanguage(), magazine.getPublisher(),
-            magazine.getISBN10(), magazine.getISBN13(), function (type) {
+            magazine.getISBN10(), magazine.getISBN13(), Copies, function (type) {
                 if (type === 'success')
                     callback('success');
                 else
