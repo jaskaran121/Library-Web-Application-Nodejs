@@ -174,6 +174,7 @@ app.post('/api/create/movie', (req, res) => {
 });
 
 //Delete entry item
+
 app.get('/api/delete/:entry/:id', (req, res) => {
     var entry = req.params.entry;
     var id = req.params.id;
