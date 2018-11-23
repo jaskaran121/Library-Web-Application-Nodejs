@@ -42,6 +42,17 @@ class DataMapper {
                     callback('error');
             })
     }
+	
+	static create_Music(Type, Title, Artist, Label, Release_Date, ASIN, callback) {
+        const music = new models.Music(Type, Title, Artist, Label, Release_Date, ASIN, null);
+        gateway.insert_Music(music.getType(), music.getTitle(), music.getArtist(), music.getLabel(), music.getRelease_Date(),
+            music.getASIN(), function (type) {
+                if (type === 'success')
+                    callback('success');
+                else
+                    callback('error');
+            })
+    }
 
     static update_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, id, callback) {
         const book = new models.Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, id);
@@ -55,9 +66,30 @@ class DataMapper {
                     callback('error');
             })
     }
+	
+	static update_Music(Type, Title, Artist, Label, Release_Date, ASIN, id, callback) {
+        const music = new models.Music(Type, Title, Artist, Label, Release_Date, ASIN, id);
+
+        gateway.update_Music(music.getType(), music.getTitle(), music.getArtist(), music.getLabel(),
+            music.getRelease_Date(), music.getASIN(), music.getID(), function (type) {
+                if (type === 'success')
+                    callback('success');
+                else
+                    callback('error');
+            })
+    }
 
     static searchFilter_Book(query, filter, callback) {
         gateway.searchFilter_Book(query, filter, function (type, result) {
+            if (type === 'success')
+                callback('success',result);
+            else
+                callback('error',null);
+        })
+    }
+	
+	static searchFilter_Music(query,filter,callback){
+        gateway.searchFilter_Music(query, filter, function (type, result) {
             if (type === 'success')
                 callback('success',result);
             else
