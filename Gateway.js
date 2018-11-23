@@ -105,6 +105,20 @@ class Gateway{
                 }
             });
     }
+	static insert_Movie(Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_Time,callback) {
+    
+        db.getInstance().query(`INSERT INTO movie(Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_Time)
+        VALUES('${Title}','${Director}','${Producers}',
+        '${Actors}','${Language}','${Subtitles}','${Dubbed}','${Release_Date}','${Run_Time}'
+        )`, function (err, result) {
+                if (result.affectedRows) {
+                    callback('success');
+                }
+                else {
+                    callback('error');
+                }
+            });
+    }
 
     static show(entry,callback) {
 
