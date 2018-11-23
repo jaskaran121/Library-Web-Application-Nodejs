@@ -33,6 +33,14 @@ class Movie{
     {
         return this.Subtitles;
     }
+    getDubbed()
+    {
+        return this.Dubbed;
+    }
+    getRun_Time()
+    {
+        return this.Run_Time;
+    }
 
    
 }
