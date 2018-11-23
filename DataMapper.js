@@ -79,6 +79,17 @@ class DataMapper {
                     callback('error');
             })
     }
+
+    static create_Magazine(Title, Language, Publisher, ISBN10, ISBN13, callback) {
+        const magazine = new models.Magazine(Title, Language, Publisher, ISBN10, ISBN13, null);
+        gateway.insert_Magazine(magazine.getTitle(), magazine.getLanguage(), magazine.getPublisher(),
+            magazine.getISBN10(), magazine.getISBN13(), function (type) {
+                if (type === 'success')
+                    callback('success');
+                else
+                    callback('error');
+            });
+    }
 	
 	static create_Music(Type, Title, Artist, Label, Release_Date, ASIN, callback) {
         const music = new models.Music(Type, Title, Artist, Label, Release_Date, ASIN, null);
@@ -114,6 +125,17 @@ class DataMapper {
                     callback('error');
             })
     }
+
+    static update_Magazine(Title, Language, Publisher, ISBN10, ISBN13, id, callback) {
+        const magazine = new models.Magazine(Title, Language, Publisher, ISBN10, ISBN13, id);
+        gateway.update_Magazine(magazine.getTitle(), magazine.getLanguage(), magazine.getPublisher(), magazine.getISBN10()
+            , magazine.getISBN13(), magazine.getID(), function (type) {
+                if (type === 'success')
+                    callback('success');
+                else
+                    callback('error');
+            })
+    }
 	
 	static update_Music(Type, Title, Artist, Label, Release_Date, ASIN, id, callback) {
         const music = new models.Music(Type, Title, Artist, Label, Release_Date, ASIN, id);
@@ -129,6 +151,15 @@ class DataMapper {
 
     static searchFilter_Book(query, filter, callback) {
         gateway.searchFilter_Book(query, filter, function (type, result) {
+            if (type === 'success')
+                callback('success',result);
+            else
+                callback('error',null);
+        })
+    }
+
+    static searchFilter_Magazine(query,filter,callback){
+        gateway.searchFilter_Magazine(query, filter, function (type, result) {
             if (type === 'success')
                 callback('success',result);
             else
