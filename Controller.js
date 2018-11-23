@@ -171,6 +171,18 @@ app.get('/api/delete/:entry/:id', (req, res) => {
     });
 });
 
+//Show data items
+app.get('/api/show/:entry', (req, res) => {
+    var entry = req.params.entry;
+
+    mapper.show(entry, function (type, result) {
+        if (type === 'success')
+            res.status(200).json({ "success": 'SOEN 341', "id": result });
+        else
+            res.status(500).json({ "error": 'Not able to fetch values' });
+    });
+});
+
 //Update entry
 app.post('/api/update/:entry/:id', (req, res) => {
     if (req.params.entry === 'Book') {
