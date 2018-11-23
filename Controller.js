@@ -38,23 +38,27 @@ app.get('/createnewentry', (req, res) => {
     res.sendFile(__dirname + '/frontend/createnewentry.html');
 })
 
-app.get('/activeusers',(req,res) =>{
+app.get('/activeusers', (req, res) => {
     res.sendFile(__dirname + '/frontend/activeusers.html');
 })
 
-app.get('/deleteentry',(req,res) =>{
+app.get('/deleteentry', (req, res) => {
     res.sendFile(__dirname + '/frontend/deleteentry.html');
 })
 
-app.get('/modifyentry',(req,res) =>{
+app.get('/modifyentry', (req, res) => {
     res.sendFile(__dirname + '/frontend/modifyentry.html');
 })
 
-app.get('/modify',(req,res) =>{
+app.get('/modify', (req, res) => {
     res.sendFile(__dirname + '/frontend/modify.html');
 })
 
+app.get('/search', (req, res) => {
+    res.sendFile(__dirname + '/frontend/search.html');
+})
 //Rest Api for loggin in admininstrator
+
 app.post('/api/login', (req, res) => {
 
     mapper.login_Admin(req.body.user, req.body.password, function (type) {
@@ -68,6 +72,7 @@ app.post('/api/login', (req, res) => {
 });
 
 //Rest Api for sign-up of admininstrator
+
 app.post('/api/signup/admin', (req, res) => {
     mapper.insert_Admin(req.body.FirstName, req.body.LastName, req.body.user, req.body.password, req.body.Email,
         req.body.PhoneNumber, function (type) {
@@ -106,9 +111,10 @@ app.post('/api/student/login', (req, res) => {
         else
             res.status(500).json({ "error": 'User not found' });
     });
-})
+});
 
 // Viewing active users
+
 app.post('/api/view/students', (req, res) => {
     mapper.viewActiveUsers(function (type, result) {
         if (type === 'success')
@@ -119,11 +125,12 @@ app.post('/api/view/students', (req, res) => {
 });
 
 //create book entry
+
 app.post('/api/create/book', (req, res) => {
 
     mapper.create_Book(req.body.Title, req.body.Author, req.body.Format,
         req.body.Pages, req.body.Publisher, req.body.Language,
-        req.body.ISBN10, req.body.ISBN13, req.body.Copies,function (type) {
+        req.body.ISBN10, req.body.ISBN13,req.body.Copies, function (type) {
             if (type === 'success') {
                 res.status(200).json({ "success": 'SOEN 341' + req.body.Title });
             } else {
@@ -137,7 +144,7 @@ app.post('/api/create/book', (req, res) => {
 app.post('/api/create/magazine', (req, res) => {
 
     mapper.create_Magazine(req.body.Title, req.body.Language, req.body.Publisher,
-        req.body.ISBN10, req.body.ISBN13, req.body.Copies, function (type) {
+        req.body.ISBN10, req.body.ISBN13, req.body.Copies,function (type) {
             if (type === 'success') {
                 res.status(200).json({ "success": 'SOEN 341' });
             }
@@ -148,6 +155,7 @@ app.post('/api/create/magazine', (req, res) => {
 });
 
 //create music entry
+
 app.post('/api/create/music', (req, res) => {
     mapper.create_Music(req.body.Type, req.body.Title, req.body.Artist, req.body.Label,
         req.body.ReleaseDate, req.body.ASIN, req.body.Copies,function (type) {
@@ -161,6 +169,7 @@ app.post('/api/create/music', (req, res) => {
 });
 
 //Create movie entry
+
 app.post('/api/create/movie', (req, res) => {
     mapper.create_Movie(req.body.Title, req.body.Director, req.body.Producers, req.body.Actors, req.body.Language,
         req.body.Subtitles, req.body.Dubbed, req.body.ReleaseDate, req.body.RunTime,req.body.Copies, function (type) {
@@ -186,7 +195,9 @@ app.get('/api/delete/:entry/:id', (req, res) => {
     });
 });
 
+
 //Show data items
+
 app.get('/api/show/:entry', (req, res) => {
     var entry = req.params.entry;
 
@@ -198,8 +209,9 @@ app.get('/api/show/:entry', (req, res) => {
     });
 });
 
-//Update entry
+//Update entry item
 app.post('/api/update/:entry/:id', (req, res) => {
+
     if (req.params.entry === 'Book') {
         mapper.update_Book(req.body.Title, req.body.Author, req.body.Format,
             req.body.Pages, req.body.Publisher, req.body.Language, req.body.ISBN10, req.body.ISBN13,
@@ -221,7 +233,8 @@ app.post('/api/update/:entry/:id', (req, res) => {
             })
 
     }
-	if (req.params.entry === 'Movie') {
+
+    if (req.params.entry === 'Movie') {
         mapper.update_Movie(req.body.Title, req.body.Director, req.body.Producers, req.body.Actors, req.body.Language,
             req.body.Subtitles, req.body.Dubbed, req.body.ReleaseDate, req.body.RunTime, req.params.id, function (type) {
                 if (type === 'success')
@@ -231,8 +244,8 @@ app.post('/api/update/:entry/:id', (req, res) => {
             });
 
     }
-	
-	if (req.params.entry === 'Music') {
+
+    if (req.params.entry === 'Music') {
         mapper.update_Music(req.body.Type, req.body.Title, req.body.Artist, req.body.Label,
             req.body.ReleaseDate, req.body.ASIN, req.params.id, function (type) {
                 if (type === 'success')
@@ -242,10 +255,9 @@ app.post('/api/update/:entry/:id', (req, res) => {
             })
 
     }
-	
-});
+})
 
-//Search      
+//Search data
 app.get('/api/search/:entry/:query/:filter', (req, res) => {
     const entry = req.params.entry;
     const query = req.params.query;
@@ -272,7 +284,6 @@ app.get('/api/search/:entry/:query/:filter', (req, res) => {
             });
         }
     }
-
     if (entry === "Magazine") {
 
         if (filter === "Random") {
@@ -297,8 +308,8 @@ app.get('/api/search/:entry/:query/:filter', (req, res) => {
         }
 
     }
-	
-	if (entry === "Music") {
+
+    if (entry === "Music") {
 
         if (filter === "Random") {
             mapper.searchFilter_Music(query, null, function (type, result) {
@@ -322,8 +333,8 @@ app.get('/api/search/:entry/:query/:filter', (req, res) => {
         }
 
     }
-	
-if (entry === "Movie") {
+
+    if (entry === "Movie") {
 
         if (filter === "Random") {
             mapper.searchFilter_Movie(query, null, function (type, result) {
@@ -347,4 +358,5 @@ if (entry === "Movie") {
         }
     }
 });
+
 app.listen(3000, () => console.log("Listening on 3000 port...."));
