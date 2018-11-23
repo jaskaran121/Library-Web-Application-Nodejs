@@ -111,6 +111,24 @@ class Gateway{
         }
 
     }
+	
+	static insert_Music(Type,Title,Artist,Label,Release_Date,ASIN,Copies,callback) {
+        let count=0;
+        for(var i=0;i<Copies;i++)
+        {
+        db.getInstance().query(`INSERT INTO music(Type,Title,Artist,Label,Release_Date,ASIN) VALUES
+        ('${Type}','${Title}','${Artist}','${Label}','${Release_Date}','${ASIN}')`, function (err, result) {
+                if (result.affectedRows) {
+                    count++;
+                    if(count===Copies-1)
+                    callback('success');
+                }
+                else {
+                    callback('error');
+                }
+            });}
+    }
+	
 	 static insert_Movie(Title,Director,Producers,Actors,Language,Subtitles,Dubbed,Release_Date,Run_Time,Copies,callback) {
         let count=0;
         for(var i=0;i<Copies;i++)
@@ -152,19 +170,6 @@ class Gateway{
         });
     }
 
-
-	static insert_Music(Type,Title,Artist,Label,Release_Date,ASIN,callback) {
-
-        db.getInstance().query(`INSERT INTO music(Type,Title,Artist,Label,Release_Date,ASIN) VALUES
-        ('${Type}','${Title}','${Artist}','${Label}','${Release_Date}','${ASIN}')`, function (err, result) {
-                if (result.affectedRows) {
-                    callback('success');
-                }
-                else {
-                    callback('error');
-                }
-            });
-    }
 	
     static update_Book(Title, Author, Format, Pages, Publisher, Language, ISBN10, ISBN13, id, callback) {
         db.getInstance().query(`UPDATE book SET Title = '${Title}' , Author = '${Author}' , Format = '${Format}',
@@ -214,15 +219,17 @@ class Gateway{
 	static update_Music(Type, Title, Artist, Label, Release_Date, ASIN,id,callback)
     {
         db.getInstance().query(`UPDATE music SET Title = '${Title}' , Type = '${Type}' , 
-        Artist = '${Artist}' , Release_Date = '${Release_Date}' , 
+        Artist = '${Artist}' , Release_Date = '${Release_Date}' , Label = '${Label}',
         ASIN = '${ASIN}' WHERE id = '${id}'`,function(err,result)
         {
             if(result.affectedRows)
             {
                 callback('success');
             }
-            else
-            callback('error');
+            else{
+                callback('error');
+            }
+            
         })
     }
 	

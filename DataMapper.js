@@ -91,16 +91,17 @@ class DataMapper {
             });
     }
 	
-	static create_Music(Type, Title, Artist, Label, Release_Date, ASIN, callback) {
+	static create_Music(Type, Title, Artist, Label, Release_Date, ASIN, Copies,callback) {
         const music = new models.Music(Type, Title, Artist, Label, Release_Date, ASIN, null);
         gateway.insert_Music(music.getType(), music.getTitle(), music.getArtist(), music.getLabel(), music.getRelease_Date(),
-            music.getASIN(), function (type) {
+            music.getASIN(), Copies,function (type) {
                 if (type === 'success')
                     callback('success');
                 else
                     callback('error');
             })
     }
+	
 	static create_Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time, Copies, callback) {
         const movie = new models.Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time, null);
         gateway.insert_Movie(movie.getTitle(), movie.getDirector(), movie.getProducers(), movie.getActors(),
@@ -175,7 +176,6 @@ class DataMapper {
 	
 	static update_Music(Type, Title, Artist, Label, Release_Date, ASIN, id, callback) {
         const music = new models.Music(Type, Title, Artist, Label, Release_Date, ASIN, id);
-
         gateway.update_Music(music.getType(), music.getTitle(), music.getArtist(), music.getLabel(),
             music.getRelease_Date(), music.getASIN(), music.getID(), function (type) {
                 if (type === 'success')
@@ -211,6 +211,7 @@ class DataMapper {
                 callback('error',null);
         })
     }
+	
 	static searchFilter_Movie(query,filter,callback){
         gateway.searchFilter_Movie(query, filter, function (type, result) {
             if (type === 'success')

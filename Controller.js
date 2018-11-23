@@ -150,7 +150,7 @@ app.post('/api/create/magazine', (req, res) => {
 //create music entry
 app.post('/api/create/music', (req, res) => {
     mapper.create_Music(req.body.Type, req.body.Title, req.body.Artist, req.body.Label,
-        req.body.ReleaseDate, req.body.ASIN, function (type) {
+        req.body.ReleaseDate, req.body.ASIN, req.body.Copies,function (type) {
             if (type === 'success') {
                 res.status(200).json({ "success": 'SOEN 341' });
             }
@@ -322,6 +322,7 @@ app.get('/api/search/:entry/:query/:filter', (req, res) => {
         }
 
     }
+	
 if (entry === "Movie") {
 
         if (filter === "Random") {
