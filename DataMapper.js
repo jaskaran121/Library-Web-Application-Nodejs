@@ -80,16 +80,17 @@ class DataMapper {
             })
     }
 
-    static create_Magazine(Title, Language, Publisher, ISBN10, ISBN13, Copies, callback) {
+    static create_Magazine(Title, Language, Publisher, ISBN10, ISBN13, callback) {
         const magazine = new models.Magazine(Title, Language, Publisher, ISBN10, ISBN13, null);
         gateway.insert_Magazine(magazine.getTitle(), magazine.getLanguage(), magazine.getPublisher(),
-            magazine.getISBN10(), magazine.getISBN13(), Copies, function (type) {
+            magazine.getISBN10(), magazine.getISBN13(), function (type) {
                 if (type === 'success')
                     callback('success');
                 else
                     callback('error');
             });
     }
+
 	
 	static create_Music(Type, Title, Artist, Label, Release_Date, ASIN, callback) {
         const music = new models.Music(Type, Title, Artist, Label, Release_Date, ASIN, null);
