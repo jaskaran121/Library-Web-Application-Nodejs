@@ -182,6 +182,7 @@ class Gateway{
 
             });
     }
+
 	static update_Movie(Title, Director, Producers, Actors, Language, Subtitles, Dubbed, Release_Date, Run_Time,id,callback)
     {
         db.getInstance().query(`UPDATE movie SET Title = '${Title}' , Language = '${Language}' , 
