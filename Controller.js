@@ -413,6 +413,7 @@ app.post('/api/update/:entry/:id', (req, res) => {
 
     }
 
+
     if (req.params.entry === 'Movie') {
         mapper.update_Movie(req.body.Title, req.body.Director, req.body.Producers, req.body.Actors, req.body.Language,
             req.body.Subtitles, req.body.Dubbed, req.body.ReleaseDate, req.body.RunTime, req.params.id, function (type) {
