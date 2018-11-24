@@ -194,7 +194,6 @@ app.get('/api/delete/:entry/:id', (req, res) => {
         else
             res.status(500).json({ "error": 'Not able to fetch values' });
     });
-<<<<<<< HEAD
 });
 
 
