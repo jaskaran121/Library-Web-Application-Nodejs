@@ -203,7 +203,6 @@ class DataMapper {
                 callback('error', null);
         })
     }
-	
 	static searchFilter_Music(query,filter,callback){
         gateway.searchFilter_Music(query, filter, function (type, result) {
             if (type === 'success')
