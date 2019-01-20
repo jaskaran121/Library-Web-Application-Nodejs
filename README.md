@@ -1,4 +1,3 @@
-# Soen341
 Guidelines to run the project:-
 1. Install Node js on system.
 2. Install express framework on system.
